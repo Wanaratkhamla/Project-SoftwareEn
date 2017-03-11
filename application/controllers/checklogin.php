@@ -21,11 +21,17 @@ class checklogin extends CI_Controller
     // $this->load->view('login');
     $username = $_POST["username"];
     $password = $_POST["password"];
+
     $result = $this->user->listname($username, $password);
-    foreach ($result as $row) {
-      # code...
-      echo $row->name . ' ' . $row->username . ' ' . $row->id . ' ' . $row->email;
+    if($result == 0){
+      echo "invalid username";
+    }else{
+      foreach ($result as $row) {
+        # code...
+        echo $row->IDCard . ' ' . $row->Fname . ' ' . $row->Lname . ' ' . $row->Address;
+      }
     }
+
 
 
 

@@ -98,9 +98,18 @@ img { margin: 0px; padding: 0px; border: none; }
 }
 
 #searchfield {
-	height: 30px;
+	height: 15px;
 	width: 200px;
 	padding: 5px;
+	color: #000;
+	font-size: 13px;
+	font-variant: normal;
+	line-height: normal;
+	background: #606060;
+	border: 1px solid #969696;	
+}
+
+#searchaddress {
 	color: #000;
 	font-size: 13px;
 	font-variant: normal;

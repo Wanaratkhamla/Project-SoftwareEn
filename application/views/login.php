@@ -1,10 +1,10 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Metallic Website Template, free css template, free website template</title>
 <meta name="keywords" content="Metallic Website Template, free css template, free website template, CSS, XHTML" />
 <meta name="description" content="Metallic Website - free xhtml/css website template by templatemo.com" />
-<link href="Boostap/templatemo_style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('Boostap/templatemo_style.css');?>" media="all"/>
 </head>
 <body>
 <div id="templatemo_container">
@@ -45,37 +45,37 @@
         <div id="banner_header_02"><center>เข้าสู่ระบบ</center></div>
         <div id="banner_text">
             <center>
-							<?php
-							    $attributes = array("method" => "form-POST", "autocomplete" => "on");
-							    echo form_open("checklogin", $attributes);?>
+								<?php
+								    $attributes = array("method" => "POST", "autocomplete" => "on");
+								    echo form_open("checklogin", $attributes);?>
   <div id="search_section">
     <label for="inputUsername" class="col-sm-2 control-label"></label>
       <div class="col-sm-8">
-        Username <input class="form-control" type="text" id="searchfield" name="username" pattern="\w{2,}" placeholder="Enter username" required autofocus>
+        Username <input class="form-control" type="text" id="searchfield" name="username" pattern="\w{4,}" placeholder="Enter username" required autofocus>
          </div>
          <div><p></p></div>
   </div>
   <div id="search_section">
     <label for="inputPassword" class="col-sm-2 control-label"></label>
       <div class="col-sm-8">
-        Password <input class="form-control" type="password" id="searchfield" name="password" pattern="\w{3,15}" placeholder="Enter password" required>
+        Password <input class="form-control" type="password" id="searchfield" name="password" pattern="\w{8,16}" placeholder="Enter password" required>
          </div>
   </div>
   <div class="form-group">
   <label class="col-sm-2 control-label"></label>
   <div class="col-sm-8">
   <label class="checkbox-inline">
-    <p></p><input type="checkbox" name="remember"> จำการเข้าสู่ระบบที่เครื่องนี้ <br><a href="struct.php">สมัครสมาชิกสำหรับลูกค้าใหม่</a><p>
+    <p></p><input type="checkbox" name="remember"> จำการเข้าสู่ระบบที่เครื่องนี้ <br><a type="text/css" href="<?php echo base_url() ?>index.php/linkregister">สมัครสมาชิกสำหรับลูกค้าใหม่</a><p>
     </label>
     </div>
    </div>
    <div class="form-group">
     <label class="col-sm-2 control-label"></label>
      <div class="col-sm-8">
-    <button type="submit" class="btn btn-primary" id="searchbutton">login</button>
+    <button type="submit" class="btn btn-primary" id="searchbutton">login</button><br><br><br><br>
     </div>
    </div>
-<?php echo form_close(); ?></center>
+<?php echo form_close(); ?></center></center>
 
         </div>
     </div>	<!-- end of banner -->
