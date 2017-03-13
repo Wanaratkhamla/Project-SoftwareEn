@@ -8,6 +8,7 @@ class captcha extends CI_Model
   {
     # code...
       parent::__construct();
+      $this->load->helper('captcha');
   }
 
   function CreateCaptcha()
@@ -25,7 +26,7 @@ class captcha extends CI_Model
               'pool'          => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
 
               // White background and border, black text and red grid
-              'colors'        => array(
+                      'colors'        => array(
                       'background' => array(255, 255, 255),
                       'border' => array(255, 255, 255),
                       'text' => array(0, 0, 0),

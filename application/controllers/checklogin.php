@@ -31,7 +31,16 @@ class checklogin extends CI_Controller
       echo "<script type='text/javascript'>alert('Successful!!!!');</script>";
       foreach ($result as $row) {
         # code...
-        echo $row->IDCard . ' ' . $row->Fname . ' ' . $row->Lname . ' ' . $row->Address;
+        echo "บัตรประชาชน : " . $row->IDCard; echo '<br>';
+        echo "ชื่อจริง : ". $row->Fname; echo '<br>';
+        echo "นามสกุล" . $row->Lname; echo '<br>';
+        echo "ที่อยู่" . $row->Address; echo '<br>';
+        echo "เบอร์โทรศัพท์" . $row->Tel; echo '<br>';
+        echo "Email : " . $row->Email; echo '<br>';
+        echo "Username : " . $row->Username; echo '<br>';
+        echo "จังหวัด : " . $row->Province; echo '<br>';
+        echo "ตำบล : " . $row->Didtrict; echo '<br>';
+        echo "รหัสไปรษณีย์ : " . $row->Postcode; echo '<br>';
       }
     }
 

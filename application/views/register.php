@@ -182,7 +182,7 @@ $(document).ready(function() {
             <center>
 								<?php
 								    $attributes = array("method" => "POST", "autocomplete" => "on");
-								    echo form_open("checklogin", $attributes);?>
+								    echo form_open("usercontroller", $attributes);?>
                     <div id="search_section">
                   <div class="col-sm-8">
                   Username : <input  id="username" type="text" name="username" pattern="\w{2,}" placeholder="Enter username" required><br>
