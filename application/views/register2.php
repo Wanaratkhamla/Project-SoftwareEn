@@ -5,92 +5,6 @@
 <meta name="keywords" content="Metallic Website Template, free css template, free website template, CSS, XHTML" />
 <meta name="description" content="Metallic Website - free xhtml/css website template by templatemo.com" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('Boostap/templatemo_style.css');?>" media="all"/>
-<script src="<?php echo base_url('Boostap/js/jQuery v3.1.1.js');?>"></script>
-<script>
-$(document).ready(function() {
-		$("#username").keyup(function() {
-				var getusername = $('#username').val();
-				var lengthusername = getusername.length;
-				var checkoverlap = "name=" + getusername ;
-				$.ajax({
-				 url:"usercontroller/checkuser",
-				 data:checkoverlap,
-				 type:"POST",
-				 success:function(res){
-					 if (lengthusername > 5) {
-						 if (res == 1) {
-  						 $("#username").css("background-color", "#ff6666");
-							 $("#usercheck").text("User นี้ถูกใช้งานแล้ว");
-							 $("#usercheck").css("color", "ff6666");
-  					 }else{
-  						 $("#username").css("background-color", "#66cc66");
-							 $("#usercheck").text("User สามารถใช้งานได้");
-							 $("#usercheck").css("color", "66cc66");
-  					 }
-					 }else{
-						 	 $("#username").css("background-color", "#ff6666");
-							 $("#usercheck").text("Password น้อยกว่า 6 อักขระ");
-							 $("#usercheck").css("color", "ff6666");
-					 }
-				 }
-				});
-		});
-		$("#ccha").keyup(function() {
-			var getcode = $('#ccha').val();
-			var getcode2 = '<?php echo $word;?>';
-			if (getcode == getcode2) {
-					$("#submitregister").prop('disabled', false);
-			}else{
-					$("#submitregister").prop('disabled', true);
-			}
-		});
-		$("#idcade").keyup(function () {
-			var getid = $('#idcade').val();
-			var lengthid = getid.length;
-			var checkoverlapid = "id=" + getid ;
-			$.ajax({
-				url:"usercontroller/checkid",
-				data:checkoverlapid,
-				type:"POST",
-				success:function(check){
-					if (lengthid == 13){
-						if (check == 1) {
-							$("#idcade").css("background-color", "#ff6666");
-							$("#idcheck").text("บัตรประชาชนนี้ถูกใช้งานแล้ว");
-							$("#idcheck").css("color", "ff6666");
-						}else{
-							$.ajax({
-								url:"usercontroller/checkidusenot",
-								data:checkoverlapid,
-								type:"POST",
-								success:function(testid){
-									if (testid == 1) {
-										$("#idcade").css("background-color", "#66cc66");
-										$("#idcheck").text("บัตรประชาชนสามารถใช้งานได้");
-										$("#idcheck").css("color", "66cc66");
-									}else{
-										$("#idcade").css("background-color", "#ff6666");
-										$("#idcheck").text("บัตรประชาชนนี้ไม่สามารถใช้ได้");
-										$("#idcheck").css("color", "ff6666");
-									}
-			  			 	}
-							});
-						}
-					}else if(lengthid > 13){
-							$("#idcade").css("background-color", "#ff6666");
-							$("#idcheck").text("บัตรประชาชนมากกว่า 13 อักขระ");
-							$("#idcheck").css("color", "ff6666");
-					}else {
-						$("#idcade").css("background-color", "#ff6666");
-						$("#idcheck").text("บัตรประชาชนน้อยกว่า 13 อักขระ");
-						$("#idcheck").css("color", "ff6666");
-					}
-				}
-			});
-
-		});
-});
-</script>
 <script>
 		function checkid() {
 
@@ -140,6 +54,9 @@ $(document).ready(function() {
 				}
 		}
 </script>
+
+
+
 </head>
 <body>
 <div id="templatemo_container">
@@ -185,8 +102,7 @@ $(document).ready(function() {
 								    echo form_open("checklogin", $attributes);?>
                     <div id="search_section">
                   <div class="col-sm-8">
-                  Username : <input  id="username" type="text" name="username" pattern="\w{2,}" placeholder="Enter username" required><br>
-									<span id="usercheck" class="usercheck"></span>
+                  Username : <input  id="username" type="text" name="username" pattern="\w{6,}" placeholder="Enter username" required autofocus>
                   </div><br>
                   </div>
                   <div class="search_section">
@@ -216,8 +132,8 @@ $(document).ready(function() {
                  </div>
                  <div class="search_section">
                   <div class="col-sm-8">
-                    เลขบัตรประจำตัวประชาชน : <input class="form-control" id="idcade" type="text" name="idcard" pattern="[0-9]{13}" placeholder="Enter your ID number" required><br>
-										<span id="idcheck" class="idcheck"></span>
+                    เลขบัตรประจำตัวประชาชน : <input class="form-control" id="idcade" type="text" name="idcard" pattern="[0-9]{13}" placeholder="Enter your ID number"
+              			onkeyup="checkid()" required>
               			<br>
                   </div><br>
                 </div>
@@ -330,19 +246,10 @@ $(document).ready(function() {
                             E-mail : <input class="form-control" id="Email" type="text" name="Email" placeholder="Enter your email address" multiple>
                               </div>
                           </div><br>
-
-													<?php echo $image; ?> <br>
-
-													<div class="search_section">
-	                           <div class="col-sm-8">
-	                            <br> Code : <input class="form-control" id="ccha" type="text" name="ccha" multiple>
-	                              </div>
-	                          </div><br>
-
                           <div class="search_section">
                            <label class="col-sm-2 control-label"></label>
                             <div class="col-sm-8">
-                               <button id="submitregister" type="submit" class="btn btn-default" disabled>สมัครสมาชิก</button><br><br>
+                               <button type="submit" class="btn btn-default">สมัครสมาชิก</button><br><br>
                        				<br><br>
                             </div>
                           </div>

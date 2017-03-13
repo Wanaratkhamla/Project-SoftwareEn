@@ -24,8 +24,11 @@ class checklogin extends CI_Controller
 
     $result = $this->user->listname($username, $password);
     if($result == 0){
-      echo "invalid username";
+      $check["error"] = 1;
+      $this->load->helper(array('form'));
+      $this->load->view('login' , $check);
     }else{
+      echo "<script type='text/javascript'>alert('Successful!!!!');</script>";
       foreach ($result as $row) {
         # code...
         echo $row->IDCard . ' ' . $row->Fname . ' ' . $row->Lname . ' ' . $row->Address;

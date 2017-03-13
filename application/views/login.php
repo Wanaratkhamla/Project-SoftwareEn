@@ -1,3 +1,9 @@
+<?php
+if(!isset($error)){
+  $check = 0;
+}else{
+  $check = 1;
+} ?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -48,45 +54,52 @@
 								<?php
 								    $attributes = array("method" => "POST", "autocomplete" => "on");
 								    echo form_open("checklogin", $attributes);?>
-  <div id="search_section">
-    <label for="inputUsername" class="col-sm-2 control-label"></label>
-      <div class="col-sm-8">
-        Username <input class="form-control" type="text" id="searchfield" name="username" pattern="\w{4,}" placeholder="Enter username" required autofocus>
-         </div>
-         <div><p></p></div>
-  </div>
-  <div id="search_section">
-    <label for="inputPassword" class="col-sm-2 control-label"></label>
-      <div class="col-sm-8">
-        Password <input class="form-control" type="password" id="searchfield" name="password" pattern="\w{8,16}" placeholder="Enter password" required>
-         </div>
-  </div>
-  <div class="form-group">
-  <label class="col-sm-2 control-label"></label>
-  <div class="col-sm-8">
-  <label class="checkbox-inline">
-    <p></p><input type="checkbox" name="remember"> จำการเข้าสู่ระบบที่เครื่องนี้ <br><a type="text/css" href="<?php echo base_url() ?>index.php/linkregister">สมัครสมาชิกสำหรับลูกค้าใหม่</a><p>
-    </label>
-    </div>
-   </div>
-   <div class="form-group">
-    <label class="col-sm-2 control-label"></label>
-     <div class="col-sm-8">
-    <button type="submit" class="btn btn-primary" id="searchbutton">login</button><br><br><br><br>
-    </div>
-   </div>
-<?php echo form_close(); ?></center></center>
+              <div id="search_section">
+                <label for="inputUsername" class="col-sm-2 control-label"></label>
+                  <div class="col-sm-8">
+                    Username : <input class="form-control" type="text" id="id" name="username" pattern="\w{4,}" placeholder="Enter username" required autofocus>
+                     </div>
+                     <div><p></p></div>
+              </div>
+              <div id="search_section">
+                <label for="inputPassword" class="col-sm-2 control-label"></label>
+                  <div class="col-sm-8">
+                    Password : <input class="form-control" type="password" id="pass" name="password" pattern="\w{8,16}" placeholder="Enter password" required>
+                     </div>
+              </div>
+              <br>
 
-        </div>
-    </div>	<!-- end of banner -->
+              <?php
+              if ($check == 1) {
+              echo '<span style="color:#ff0000;text-align:center;">Invalid Username</span>';
+              }
+               ?>
 
-    <div id="cb"></div>
-    <div id="templatemo_footer">
-        Copyright © 2048 <a href="#">Your Company Name</a> |
-		<a href="http://www.iwebsitetemplate.com" target="_parent">Website Templates</a> by
-        <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a>
-    </div> <!-- end of footer -->
-<!--  Free Web Templates @ TemplateMo.com  -->
-</div> <!-- end of container -->
-<div align=center>This template  downloaded form <a href='http://all-free-download.com/free-website-templates/'>free website templates</a></div></body>
-</html>
+              <div class="form-group">
+              <label class="col-sm-2 control-label"></label>
+              <div class="col-sm-8">
+              <label class="checkbox-inline">
+                <p></p><input type="checkbox" name="remember"> จำการเข้าสู่ระบบที่เครื่องนี้ <br><a type="text/css" href="<?php echo base_url() ?>index.php/linkregister">สมัครสมาชิกสำหรับลูกค้าใหม่</a><p>
+                </label>
+                </div>
+               </div>
+               <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                 <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary" id="searchbutton">login</button><br><br><br><br>
+                </div>
+               </div>
+            <?php echo form_close(); ?></center>
+
+                    </div>
+                </div>	<!-- end of banner -->
+
+                <div id="cb"></div>
+                <div id="templatemo_footer">
+                    Copyright © 2048 <a href="#">Your Company Name</a> |
+            		<a href="http://www.iwebsitetemplate.com" target="_parent">Website Templates</a> by
+                    <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a>
+                </div> <!-- end of footer -->
+            <!--  Free Web Templates @ TemplateMo.com  -->
+            </div> <!-- end of container -->
+            </html>

@@ -32,4 +32,10 @@ class Welcome extends CI_Controller {
 		// $name['lname'] = "khamla";
 		 $this->load->view('test2');
 	}
+	public function returnvalue()
+
+	{
+		echo "nosss";
+		# code...
+	}
 }
