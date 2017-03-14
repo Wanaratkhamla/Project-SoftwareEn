@@ -18,18 +18,18 @@ class usercontroller extends CI_Controller
   public function index()
   {
     # code...
-     $idcade = $_POST["idcard"];
-     $fname = $_POST["fname"];
-     $lname = $_POST["lname"];
-     $address = $_POST["Address"];
-     $tel = $_POST["Tel"];
-     $email = $_POST["Email"];
-     $username = $_POST["username"];
-     $password = $_POST["password"];
-     $conpassword = $_POST["conpassword"];
-     $Province = $_POST["Province"];
-     $Didtrict = $_POST["Didtrict"];
-     $Postcode = $_POST["Postcode"];
+     $idcade = htmlentities($_POST["idcard"]);
+     $fname = htmlentities($_POST["fname"]);
+     $lname = htmlentities($_POST["lname"]);
+     $address = htmlentities($_POST["Address"]);
+     $tel = htmlentities($_POST["Tel"]);
+     $email = htmlentities($_POST["Email"]);
+     $username = htmlentities($_POST["username"]);
+     $password = htmlentities($_POST["password"]);
+     $conpassword = htmlentities($_POST["conpassword"]);
+     $Province = htmlentities($_POST["Province"]);
+     $Didtrict = htmlentities($_POST["Didtrict"]);
+     $Postcode = htmlentities($_POST["Postcode"]);
 
      $Cuser = $this->user->checkuser($username);
      $Cid = $this->user->checkssid($idcade);

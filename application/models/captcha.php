@@ -23,7 +23,7 @@ class captcha extends CI_Model
               'word_length'   => 6,
               'font_size'     => 26,
               'img_id'        => 'Imageid',
-              'pool'          => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+              'pool'          => '0123456789abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ',
 
               // White background and border, black text and red grid
                       'colors'        => array(

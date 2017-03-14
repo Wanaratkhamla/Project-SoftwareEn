@@ -19,16 +19,31 @@ class checklogin extends CI_Controller
     # code...
     // $this->load->helper(array('form'));
     // $this->load->view('login');
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    $username = htmlentities($_POST["username"]);
+    $password = htmlentities($_POST["password"]);
 
     $result = $this->user->listname($username, $password);
     if($result == 0){
-      $check["error"] = 1;
-      $this->load->helper(array('form'));
-      $this->load->view('login' , $check);
+      if($username == null && $password == null){
+        $check["error"] = 2;
+        $this->load->helper(array('form'));
+        $this->load->view('login' , $check);
+      }else if($username == null){
+        $check["error"] = 3;
+        $this->load->helper(array('form'));
+        $this->load->view('login' , $check);
+      }else if($password == null){
+        $check["error"] = 4;
+        $this->load->helper(array('form'));
+        $this->load->view('login' , $check);
+      }else {
+        $check["error"] = 1;
+        $this->load->helper(array('form'));
+        $this->load->view('login' , $check);
+      }
+
     }else{
-      echo "<script type='text/javascript'>alert('Successful!!!!');</script>";
+      echo "Successful!!!! <br>";
       foreach ($result as $row) {
         # code...
         echo "บัตรประชาชน : " . $row->IDCard; echo '<br>';
@@ -43,9 +58,6 @@ class checklogin extends CI_Controller
         echo "รหัสไปรษณีย์ : " . $row->Postcode; echo '<br>';
       }
     }
-
-
-
 
   }
 }
