@@ -17,7 +17,7 @@ if(!isset($error)){
 	<div id="templatemo_top_panel">
 		<!--  Free CSS Templates @ www.TemplateMo.com  -->
     	<div id="top_panel_ls">
-            <div id="templatemo_site_title">Metallic Website</div>
+            <div id="templatemo_site_title">Music Happy  <br><br> Share</div>
         </div>
 
       <div id="top_panel_rs">
@@ -89,16 +89,15 @@ if(!isset($error)){
                 <button type="submit" class="btn btn-primary" id="searchbutton">login</button><br><br><br><br>
                 </div>
                </div>
-            <?php echo form_close(); ?></center>
+            <?php echo form_close(); ?>
 
                     </div>
                 </div>	<!-- end of banner -->
 
                 <div id="cb"></div>
+                </center>
                 <div id="templatemo_footer">
-                    Copyright © 2048 <a href="#">Your Company Name</a> |
-            		<a href="http://www.iwebsitetemplate.com" target="_parent">Website Templates</a> by
-                    <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a>
+                    รอยยิ้มที่ยิ่งใหญ่ | เริ่มด้วยที่การแบ่งปัน
                 </div> <!-- end of footer -->
             <!--  Free Web Templates @ TemplateMo.com  -->
             </div> <!-- end of container -->
