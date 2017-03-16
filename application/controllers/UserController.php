@@ -39,7 +39,8 @@ class usercontroller extends CI_Controller
        if ($Overlapid == 0) { //เช็คว่า ID ซ้ำหรือไม่หรือไม่
           if ($Cid == 1) {  //เช็คว่า ID ถูกหรือไม่
             if ($password == $conpassword) { //เช็คว่า พาสเวิด ตรงกันหรือไม่
-                  $this->user->insertuser($idcade,$fname,$lname,$address,$tel,$email,$username,$password,$Province,$Didtrict,$Postcode);
+                  $encodepass = hash('sha256', $password);
+                  $this->user->insertuser($idcade,$fname,$lname,$address,$tel,$email,$username,$encodepass,$Province,$Didtrict,$Postcode);
                   echo '<script language="javascript">';
                   echo 'alert("registry Complete!!!!")';
                   echo '</script>';

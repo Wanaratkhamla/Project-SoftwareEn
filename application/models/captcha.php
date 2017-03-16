@@ -17,13 +17,13 @@ class captcha extends CI_Model
               'img_path'      => 'captcha/',
               'img_url'       =>  base_url() . 'captcha/',
               'font_path'     => 'captcha/times_new_yorker.ttf',
-              'img_width'     => 250,
+              'img_width'     => 200,
               'img_height'    => 80,
               'expiration'    => 7200,
-              'word_length'   => 6,
-              'font_size'     => 26,
+              'word_length'   => 4,
+              'font_size'     => 35,
               'img_id'        => 'Imageid',
-              'pool'          => '0123456789abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ',
+              'pool'          => '0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ',
 
               // White background and border, black text and red grid
                       'colors'        => array(

@@ -4,14 +4,25 @@ if(!isset($error)){
 }else if(isset($error)){
   $check = $error;
 } ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Metallic Website Template, free css template, free website template</title>
+<title>Musical Happy Share</title>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('Boostap/templatemo_style.css');?>" media="all"/>
 </head>
 <body>
+
+  
+  <?php
+  $attributes = array("method" => "POST");
+  echo form_open("startweb/test", $attributes);?>
+  <button type="submit">noss</button>
+  <?php echo form_close(); ?>
+
+
+
 <div id="templatemo_container">
 	<div id="templatemo_top_panel">
 		<!--  Free CSS Templates @ www.TemplateMo.com  -->
@@ -48,6 +59,7 @@ if(!isset($error)){
         <div id="banner_header_01"><center>Login</center></div>
         <div id="banner_header_02"><center>เข้าสู่ระบบ</center></div>
         <div id="banner_text">
+
             <center>
               <?php
                 $attributes = array("method" => "POST", "autocomplete" => "on");

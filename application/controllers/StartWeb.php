@@ -10,8 +10,14 @@ class startweb extends CI_Controller
   public function index()
   {
     # code...
-    $this->load->helper(array('form'));
-    $this->load->view('login');
+
+    $captcha = $this->captcha->CreateCaptcha();
+    $this->load->view('home' , $captcha);
+  }
+  public function test()
+  {
+    # code...
+    echo "nos";
   }
 }
  ?>

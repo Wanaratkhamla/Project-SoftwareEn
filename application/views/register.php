@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Metallic Website Template, free css template, free website template</title>
+<title>Musical Happy Share</title>
 <meta name="keywords" content="Metallic Website Template, free css template, free website template, CSS, XHTML" />
 <meta name="description" content="Metallic Website - free xhtml/css website template by templatemo.com" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('Boostap/templatemo_style.css');?>" media="all"/>
@@ -335,11 +335,13 @@ $(document).ready(function() {
                         </div>
                   </div><br>
 
-                    <?php echo $image; ?> <br>
+										<?php echo '<br><span style="color:#ff0000;text-align:center;">'  . $image . '</span>'; ?>
+										<button type="button"><img src="<?php echo base_url('Refresh.jpg');?>" width="20" height="20"></button>
 
                 <div class="search_section">
                        <div class="col-sm-8">
                         <br> Code : <input class="form-control" id="ccha" type="text" name="ccha" multiple>
+
                           </div>
                       </div><br>
 
@@ -350,6 +352,7 @@ $(document).ready(function() {
                         <br><br>
   										</div>
                       </div>
+
             <?php echo form_close(); ?></center>
 
         </div>

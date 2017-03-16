@@ -18,28 +18,44 @@ class checklogin extends CI_Controller
   {
     # code...
     // $this->load->helper(array('form'));
-    // $this->load->view('login');
+    // $this->load->view('home');
     $username = htmlentities($_POST["username"]);
-    $password = htmlentities($_POST["password"]);
+    $password = htmlentities(hash('sha256', $_POST["password"]));
 
     $result = $this->user->listname($username, $password);
     if($result == 0){
       if($username == null && $password == null){
-        $check["error"] = 2;
-        $this->load->helper(array('form'));
-        $this->load->view('login' , $check);
+        $captcha = $this->captcha->CreateCaptcha();
+        $data = array(
+          'image' => $captcha['image'],
+          'word' => $captcha['word'],
+          'error' => 2
+        );
+        $this->load->view('home' , $data);
       }else if($username == null){
-        $check["error"] = 3;
-        $this->load->helper(array('form'));
-        $this->load->view('login' , $check);
+        $captcha = $this->captcha->CreateCaptcha();
+        $data = array(
+          'image' => $captcha['image'],
+          'word' => $captcha['word'],
+          'error' => 3
+        );
+        $this->load->view('home' , $data);
       }else if($password == null){
-        $check["error"] = 4;
-        $this->load->helper(array('form'));
-        $this->load->view('login' , $check);
+        $captcha = $this->captcha->CreateCaptcha();
+        $data = array(
+          'image' => $captcha['image'],
+          'word' => $captcha['word'],
+          'error' => 3
+        );
+        $this->load->view('home' , $data);
       }else {
-        $check["error"] = 1;
-        $this->load->helper(array('form'));
-        $this->load->view('login' , $check);
+        $captcha = $this->captcha->CreateCaptcha();
+        $data = array(
+          'image' => $captcha['image'],
+          'word' => $captcha['word'],
+          'error' => 1
+        );
+        $this->load->view('home' , $data);
       }
 
     }else{
