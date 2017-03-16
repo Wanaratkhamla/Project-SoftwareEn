@@ -16,65 +16,50 @@ class checklogin extends CI_Controller
 
   public function index()
   {
-    # code...
-    // $this->load->helper(array('form'));
-    // $this->load->view('home');
+
     $username = htmlentities($_POST["username"]);
     $password = htmlentities(hash('sha256', $_POST["password"]));
 
     $result = $this->user->listname($username, $password);
     if($result == 0){
-      if($username == null && $password == null){
-        $captcha = $this->captcha->CreateCaptcha();
-        $data = array(
-          'image' => $captcha['image'],
-          'word' => $captcha['word'],
-          'error' => 2
-        );
-        $this->load->view('home' , $data);
+
+
+      if($username == null && $_POST["password"] == null){
+        $check = 2;
+        echo $check;
       }else if($username == null){
-        $captcha = $this->captcha->CreateCaptcha();
-        $data = array(
-          'image' => $captcha['image'],
-          'word' => $captcha['word'],
-          'error' => 3
-        );
-        $this->load->view('home' , $data);
-      }else if($password == null){
-        $captcha = $this->captcha->CreateCaptcha();
-        $data = array(
-          'image' => $captcha['image'],
-          'word' => $captcha['word'],
-          'error' => 3
-        );
-        $this->load->view('home' , $data);
-      }else {
-        $captcha = $this->captcha->CreateCaptcha();
-        $data = array(
-          'image' => $captcha['image'],
-          'word' => $captcha['word'],
-          'error' => 1
-        );
-        $this->load->view('home' , $data);
+        $check = 3;
+        echo $check;
+      }else if($_POST["password"] == null){
+        $check = 4;
+        echo $check;
+      }else{
+        $check = 1;
+        echo $check;
       }
-
     }else{
-      echo "Successful!!!! <br>";
-      foreach ($result as $row) {
-        # code...
-        echo "บัตรประชาชน : " . $row->IDCard; echo '<br>';
-        echo "ชื่อจริง : ". $row->Fname; echo '<br>';
-        echo "นามสกุล" . $row->Lname; echo '<br>';
-        echo "ที่อยู่" . $row->Address; echo '<br>';
-        echo "เบอร์โทรศัพท์" . $row->Tel; echo '<br>';
-        echo "Email : " . $row->Email; echo '<br>';
-        echo "Username : " . $row->Username; echo '<br>';
-        echo "จังหวัด : " . $row->Province; echo '<br>';
-        echo "ตำบล : " . $row->Didtrict; echo '<br>';
-        echo "รหัสไปรษณีย์ : " . $row->Postcode; echo '<br>';
-      }
+      $check = 5;
+      echo $check;
     }
+  }
 
+  public function showlist()
+  {
+    $username = htmlentities($_POST["username"]);
+    $password = htmlentities(hash('sha256', $_POST["password"]));
+    $result = $this->user->listname($username, $password);
+    foreach ($result as $row) {
+      echo "บัตรประชาชน : " . $row->IDCard; echo '<br>';
+      echo "ชื่อจริง : ". $row->Fname; echo '<br>';
+      echo "นามสกุล" . $row->Lname; echo '<br>';
+      echo "ที่อยู่" . $row->Address; echo '<br>';
+      echo "เบอร์โทรศัพท์" . $row->Tel; echo '<br>';
+      echo "Email : " . $row->Email; echo '<br>';
+      echo "Username : " . $row->Username; echo '<br>';
+      echo "จังหวัด : " . $row->Province; echo '<br>';
+      echo "ตำบล : " . $row->Didtrict; echo '<br>';
+      echo "รหัสไปรษณีย์ : " . $row->Postcode; echo '<br>';
+    }
   }
 }
- ?>
+?>

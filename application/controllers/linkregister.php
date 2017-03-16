@@ -15,15 +15,19 @@ class linkregister extends CI_Controller
 
   public function index()
   {
-    
+
     $captcha = $this->captcha->CreateCaptcha();
     $this->load->view('register' , $captcha);
   }
 
   public function Refresh()
   {
-    $captcha = $this->captcha->refCreateCaptcha();
-    echo $captcha;
+    $captcha = $this->captcha->CreateCaptcha();
+    $data = array(
+      'image' => $captcha['image'],
+      'word' => $captcha['word']
+    );
+    echo $data;
   }
 }
  ?>

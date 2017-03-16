@@ -5,7 +5,7 @@ if(!isset($error)){
   $check = $error;
 } ?>
 
-
+<div id="testword">noss</div>
 <html>
 <head>
     <title>Home</title>
@@ -39,6 +39,38 @@ if(!isset($error)){
         					$("#submitregister").prop('disabled', true);
         			}
         		});
+            $("#submitregister").click(function() {
+              $.ajax({
+      				 url:"index.php/checklogin",
+               data: "username=" + $('#username').val() + "&password=" + $('#password').val(),
+      				 type:"POST",
+      				 success:function(res){
+                 if (res == 2) {
+                   $("#showerror").text("Please Enter Username and Password.");
+                   $("#showerror").css("color", "ff6666");
+                 }else if (res == 3) {
+                   $("#showerror").text("Please Enter Username.");
+                   $("#showerror").css("color", "ff6666");
+                 }else if (res == 4) {
+                   $("#showerror").text("Please Enter Password.");
+                   $("#showerror").css("color", "ff6666");
+                 }else if(res == 1){
+                   $("#showerror").text("Invalid Username.");
+                   $("#showerror").css("color", "ff6666");
+                 }else{
+                    var url = 'index.php/checklogin/showlist';
+                    var username = $('#username').val();
+                    var password = $('#password').val()
+                    var form = $('<form action="' + url + '" method="post">' +
+                      '<input type="text" name="username" value="' + username + '" />' +
+                      '<input type="text" name="password" value="' + password + '" />' +
+                      '</form>');
+                    $('body').append(form);
+                    form.submit();
+                 }
+      				 }
+      				});
+            });
         });
     </script>
     <!--[if lt IE 8]>
@@ -87,22 +119,12 @@ if(!isset($error)){
                                 </span>
                             </div>
                         </div><center>
-
-                        Username : <input id="login_username" class="form-control" type="text" placeholder="Username" name="username" required><br>
-                        Password : <input id="login_password" class="form-control" type="password" placeholder="Password" name="password" required><br>
-                        <?php
-                        if ($check == 1) {
-                        echo '<br><span style="color:#ff0000;text-align:center;">Invalid Username.</span>';
-                        }elseif ($check == 2) {
-                        echo '<br><span style="color:#ff0000;text-align:center;">Please Enter Username and Password.</span>';
-                        }elseif ($check == 3) {
-                        echo '<br><span style="color:#ff0000;text-align:center;">Please Enter Username.</span>';
-                        }elseif ($check == 4) {
-                        echo '<br><span style="color:#ff0000;text-align:center;">Please Enter Password.</span>';
-                        }
-                         ?>
+                        Username : <input id="username" class="form-control" type="text" placeholder="Username" name="username"><br>
+                        Password : <input id="password" class="form-control" type="password" placeholder="Password" name="password"><br>
+                        <span id="showerror" class="showerror"></span>
 
                         <?php echo '<br><span style="color:#ff0000;text-align:center;">'  . $image . '</span>'; ?>
+                        <button type="button" id="bubbb">test</button>
                         <br> Passcode : <input class="form-control" id="ccha" type="text" name="ccha" multiple><br>
                         <input type="checkbox" > Remember me
                         </center>
@@ -111,8 +133,8 @@ if(!isset($error)){
 
                         <center>
                         <div>
-                           <button type="submit" class="btn btn_" id="submitregister" disabled=>Login</button>
-                           <?php echo form_close(); ?></center>
+                           <button type="button" class="btn btn_" id="submitregister" disabled=>Login</button>
+                        </center>
                         </div>
                         <div>
                             <button id="login_lost_btn" type="button" class="btn btn-link">Lost Password?</button>
@@ -167,7 +189,7 @@ if(!isset($error)){
                         <span class="contacts">
                             <h5>เข้าสู่ระบบ</h5>
                             <!--เรียกใช้ popup logint -->
-                            <a href="#" class="btn btn_" role="button" data-toggle="modal" data-target="#login-modal"><span style="color:#FFFFFF;text-align:center;">Login</span></a>
+                            <a href="#" class="btn btn_" role="button" data-toggle="modal" data-target="#login-modal" id="loginmodal"><span style="color:#FFFFFF;text-align:center;">Login</span></a>
                             <br><br>สมัครสมาชิก : <a href="#" data-toggle="modal" data-target="#register-modal">register</a>
                         </span>
                     </div>

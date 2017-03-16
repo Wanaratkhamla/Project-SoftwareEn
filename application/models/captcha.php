@@ -37,7 +37,6 @@ class captcha extends CI_Model
       $cap = create_captcha($vals);
       return $cap;
   }
-
 }
 
  ?>
