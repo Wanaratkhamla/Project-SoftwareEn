@@ -19,5 +19,16 @@ class startweb extends CI_Controller
     # code...
     echo "nos";
   }
+  public function refreshcaptchaimage()
+  {
+    # code...
+    $this->output->set_content_type('application/json');
+    $captcha = $this->captcha->CreateCaptcha();
+    $data = array("a" => $captcha['image'],
+                  "b" => $captcha['word']
+                  );
+    echo json_encode($data);
+    // echo $captcha;
+  }
 }
  ?>

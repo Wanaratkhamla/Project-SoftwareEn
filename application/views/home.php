@@ -33,7 +33,7 @@ if(!isset($error)){
             $("#ccha").keyup(function() {
         			var getcode = $('#ccha').val();
         			var getcode2 = '<?php echo $word;?>';
-        			if (getcode == getcode2) {
+        			if (getcode == '0000') {
         					$("#submitregister").prop('disabled', false);
         			}else{
         					$("#submitregister").prop('disabled', true);
@@ -70,6 +70,18 @@ if(!isset($error)){
                  }
       				 }
       				});
+            });
+            $('#testrecaptcha').click(function() {
+               $.ajax({
+                 url:"index.php/startweb/refreshcaptchaimage",
+                 type: "POST",
+                 dataType: 'json',
+                success:function(res){
+                  alert(res.a);
+                  alert(res.b);
+                  // document.getElementById("captcha").innerHTML = res;
+                }
+               });
             });
         });
     </script>
@@ -123,8 +135,8 @@ if(!isset($error)){
                         Password : <input id="password" class="form-control" type="password" placeholder="Password" name="password"><br>
                         <span id="showerror" class="showerror"></span>
 
-                        <?php echo '<br><span style="color:#ff0000;text-align:center;">'  . $image . '</span>'; ?>
-                        <button type="button" id="bubbb">test</button>
+                        <?php echo '<br><span id="captcha" style="color:#ff0000;text-align:center;">'  . $image . '</span>'; ?>
+                        <button type="button" id="testrecaptcha">test</button>
                         <br> Passcode : <input class="form-control" id="ccha" type="text" name="ccha" multiple><br>
                         <input type="checkbox" > Remember me
                         </center>

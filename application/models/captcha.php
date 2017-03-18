@@ -33,7 +33,6 @@ class captcha extends CI_Model
                       'grid' => array(255, 40, 40)
               )
       );
-
       $cap = create_captcha($vals);
       return $cap;
   }

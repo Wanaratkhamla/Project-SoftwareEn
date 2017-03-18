@@ -22,21 +22,19 @@ class checklogin extends CI_Controller
 
     $result = $this->user->listname($username, $password);
     if($result == 0){
-
-
-      if($username == null && $_POST["password"] == null){
-        $check = 2;
-        echo $check;
-      }else if($username == null){
-        $check = 3;
-        echo $check;
-      }else if($_POST["password"] == null){
-        $check = 4;
-        echo $check;
-      }else{
-        $check = 1;
-        echo $check;
-      }
+        if($username == null && $_POST["password"] == null){
+          $check = 2;
+          echo $check;
+        }else if($username == null){
+          $check = 3;
+          echo $check;
+        }else if($_POST["password"] == null){
+          $check = 4;
+          echo $check;
+        }else{
+          $check = 1;
+          echo $check;
+        }
     }else{
       $check = 5;
       echo $check;
