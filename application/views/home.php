@@ -1,11 +1,3 @@
-<?php
-if(!isset($error)){
-  $check = 0;
-}else if(isset($error)){
-  $check = $error;
-} ?>
-
-<div id="testword">noss</div>
 <html>
 <head>
     <title>Home</title>
@@ -28,12 +20,12 @@ if(!isset($error)){
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/superfish.js');?>"></script>
     <script src="<?php echo base_url('Boostap2/js/jquery.ui.totop.js');?>" type="text/javascript"></script>
     <script>
+    var getcode2 = '<?php echo $word;?>';
         $(document).ready(function(){
             jQuery('.camera_wrap').camera();
             $("#ccha").keyup(function() {
         			var getcode = $('#ccha').val();
-        			var getcode2 = '<?php echo $word;?>';
-        			if (getcode == '0000') {
+        			if (getcode == getcode2) {
         					$("#submitregister").prop('disabled', false);
         			}else{
         					$("#submitregister").prop('disabled', true);
@@ -48,15 +40,19 @@ if(!isset($error)){
                  if (res == 2) {
                    $("#showerror").text("Please Enter Username and Password.");
                    $("#showerror").css("color", "ff6666");
+                   refreshcaptcha();
                  }else if (res == 3) {
                    $("#showerror").text("Please Enter Username.");
                    $("#showerror").css("color", "ff6666");
+                   refreshcaptcha();
                  }else if (res == 4) {
                    $("#showerror").text("Please Enter Password.");
                    $("#showerror").css("color", "ff6666");
+                   refreshcaptcha();
                  }else if(res == 1){
                    $("#showerror").text("Invalid Username.");
                    $("#showerror").css("color", "ff6666");
+                   refreshcaptcha();
                  }else{
                     var url = 'index.php/checklogin/showlist';
                     var username = $('#username').val();
@@ -71,36 +67,25 @@ if(!isset($error)){
       				 }
       				});
             });
-            $('#testrecaptcha').click(function() {
-               $.ajax({
-                 url:"index.php/startweb/refreshcaptchaimage",
-                 type: "POST",
-                 dataType: 'json',
-                success:function(res){
-                  alert(res.a);
-                  alert(res.b);
-                  // document.getElementById("captcha").innerHTML = res;
-                }
-               });
+            $('#Refreshcaptcha').click(function() {
+               refreshcaptcha();
             });
+            function refreshcaptcha() {
+              $.ajax({
+                url:"index.php/startweb/refreshcaptchaimage",
+                type: "POST",
+                dataType: 'json',
+                success:function(res){
+                getcode2 = res.word
+                document.getElementById("captcha").innerHTML = res.image;
+                $('#ccha').removeAttr('value');
+                $("#submitregister").prop('disabled', true);
+               }
+              });
+            }
         });
     </script>
-    <!--[if lt IE 8]>
-    <div style='text-align:center'><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode"><img src="http://www.theie6countdown.com/img/upgrade.jpg"border="0"alt=""/></a></div>
-    <![endif]-->
-
-    <!--[if (gt IE 9)|!(IE)]><!-->
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.mobile.customized.min.js');?>"></script>
-    <!--<![endif]-->
-    <!--[if lt IE 9]>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?font-family=Roboto' rel='stylesheet' type='text/css'>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <link rel="stylesheet" href="Boostap2/css/docs.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="Boostap2/css/ie.css" type="text/css" media="screen">
-    <![endif]-->
 </head>
 
 <body>
@@ -136,7 +121,7 @@ if(!isset($error)){
                         <span id="showerror" class="showerror"></span>
 
                         <?php echo '<br><span id="captcha" style="color:#ff0000;text-align:center;">'  . $image . '</span>'; ?>
-                        <button type="button" id="testrecaptcha">test</button>
+                        <button type="button" id="Refreshcaptcha">Refresh</button>
                         <br> Passcode : <input class="form-control" id="ccha" type="text" name="ccha" multiple><br>
                         <input type="checkbox" > Remember me
                         </center>

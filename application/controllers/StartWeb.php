@@ -24,8 +24,8 @@ class startweb extends CI_Controller
     # code...
     $this->output->set_content_type('application/json');
     $captcha = $this->captcha->CreateCaptcha();
-    $data = array("a" => $captcha['image'],
-                  "b" => $captcha['word']
+    $data = array("image" => $captcha['image'],
+                  "word" => $captcha['word']
                   );
     echo json_encode($data);
     // echo $captcha;
