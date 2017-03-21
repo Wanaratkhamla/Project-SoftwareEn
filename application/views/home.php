@@ -18,6 +18,7 @@
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.easing.1.3.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/camera.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/superfish.js');?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('Boostap2/js/pop-up.js');?>"></script>
     <script src="<?php echo base_url('Boostap2/js/jquery.ui.totop.js');?>" type="text/javascript"></script>
     <script>
     var getcode2 = '<?php echo $word;?>';
@@ -31,60 +32,10 @@
         					$("#submitregister").prop('disabled', true);
         			}
         		});
-            $("#submitregister").click(function() {
-              $.ajax({
-      				 url:"index.php/checklogin",
-               data: "Email=" + $('#email').val() + "&password=" + $('#password').val(),
-      				 type:"POST",
-      				 success:function(res){
-                 if (res == 2) {
-                   $("#showerror").text("Please Enter Email and Password.");
-                   $("#showerror").css("color", "ff6666");
-                   refreshcaptcha();
-                 }else if (res == 3) {
-                   $("#showerror").text("Please Enter Email.");
-                   $("#showerror").css("color", "ff6666");
-                   refreshcaptcha();
-                 }else if (res == 4) {
-                   $("#showerror").text("Please Enter Password.");
-                   $("#showerror").css("color", "ff6666");
-                   refreshcaptcha();
-                 }else if(res == 1){
-                   $("#showerror").text("Invalid Email.");
-                   $("#showerror").css("color", "ff6666");
-                   refreshcaptcha();
-                 }else{
-                    var url = 'index.php/checklogin/showlist';
-                    var email = $('#email').val();
-                    var password = $('#password').val()
-                    var form = $('<form action="' + url + '" method="post">' +
-                      '<input type="text" name="Email" value="' + email + '" />' +
-                      '<input type="text" name="password" value="' + password + '" />' +
-                      '</form>');
-                    $('body').append(form);
-                    form.submit();
-                 }
-      				 }
-      				});
-            });
             $('#Refreshcaptcha').click(function() {
                refreshcaptcha();
             });
-            function refreshcaptcha() {
-              $.ajax({
-                url:"index.php/startweb/refreshcaptchaimage",
-                type: "POST",
-                dataType: 'json',
-                success:function(res){
-                getcode2 = res.word
-                document.getElementById("captcha").innerHTML = res.image;
-                $('#ccha').removeAttr('value');
-                $("#submitregister").prop('disabled', true);
-                $('#email').removeAttr('value');
-                $('#password').removeAttr('value');
-               }
-              });
-            }
+
         });
     </script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.mobile.customized.min.js');?>"></script>
@@ -106,9 +57,7 @@
             <!-- Begin # DIV Form -->
             <div id="div-forms">
                 <!-- Begin # Login Form -->
-                  <?php
-                  $attributes = array("method" => "POST", "autocomplete" => "on");
-                  echo form_open("checklogin", $attributes);?>
+                  <form id="login-form">
                     <div class="modal-body">
                         <div id="div-login-msg">
                             <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
@@ -124,7 +73,7 @@
 
                         <?php echo '<br><span id="captcha" style="color:#ff0000;text-align:center;">'  . $image . '</span>'; ?>
                         <button type="button" id="Refreshcaptcha"><img src="<?php echo base_url('recaptcha.png');?>" style="max-height: 20px; max-width: 20px;"/></button>
-                        <br> Passcode : <input class="form-control" id="ccha" type="text" name="ccha"><br>
+                        <br> Passcode : <input class="form-control" id="ccha" type="text" name="ccha" ><br>
                         <input type="checkbox" > Remember me
                         </center>
                     </div>
@@ -132,18 +81,17 @@
 
                         <center>
                         <div>
-                           <button type="button" class="btn btn_" id="submitregister" disabled=>Login</button>
+                           <button type="submit" class="btn btn_" id="submitregister" disabled>Login</button>
                         </center>
                         </div>
                         <div>
                             <button id="login_lost_btn" type="button" class="btn btn-link">Lost Password?</button>
                             <button type="button" class="btn btn-link">Register</button>
                         </div>
-
-
                         </center>
                     </div>
-                <?php echo form_close(); ?></center>
+                  </form>
+                </center>
                 <!-- End # Login Form -->
 
                 <!-- Begin | Lost Password Form -->
@@ -174,7 +122,8 @@
                     <div class="modal-body">
                         <div id="div-14-msg">
                             <div id="icon-14-msg" class="glyphicon glyphicon-chevron-right"></div>
-                            <span id="text-14-msg">เลือกรายการ</span>
+
+                            <center><span id="text-14-msg">เลือกรายการ</span></center>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -185,7 +134,7 @@
                     </div>
                 </form>
                 <!-- End | การ์ด 14 เลือกรับ กับ บริจาก -->
-                
+
             </div>
             <!-- End # DIV Form -->
 
