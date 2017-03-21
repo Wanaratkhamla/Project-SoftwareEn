@@ -17,15 +17,15 @@ class checklogin extends CI_Controller
   public function index()
   {
 
-    $username = htmlentities($_POST["username"]);
+    $email = htmlentities($_POST["Email"]);
     $password = htmlentities(hash('sha256', $_POST["password"]));
 
-    $result = $this->user->listname($username, $password);
+    $result = $this->user->listname($email, $password);
     if($result == 0){
-        if($username == null && $_POST["password"] == null){
+        if($email == null && $_POST["password"] == null){
           $check = 2;
           echo $check;
-        }else if($username == null){
+        }else if($email == null){
           $check = 3;
           echo $check;
         }else if($_POST["password"] == null){
@@ -43,17 +43,17 @@ class checklogin extends CI_Controller
 
   public function showlist()
   {
-    $username = htmlentities($_POST["username"]);
+    $email = htmlentities($_POST["Email"]);
     $password = htmlentities(hash('sha256', $_POST["password"]));
-    $result = $this->user->listname($username, $password);
+    $result = $this->user->listname($email, $password);
     foreach ($result as $row) {
+      echo "Successfuly!!!"; echo '<br>';
       echo "บัตรประชาชน : " . $row->IDCard; echo '<br>';
       echo "ชื่อจริง : ". $row->Fname; echo '<br>';
-      echo "นามสกุล" . $row->Lname; echo '<br>';
-      echo "ที่อยู่" . $row->Address; echo '<br>';
-      echo "เบอร์โทรศัพท์" . $row->Tel; echo '<br>';
+      echo "นามสกุล : " . $row->Lname; echo '<br>';
+      echo "ที่อยู่ : " . $row->Address; echo '<br>';
+      echo "เบอร์โทรศัพท์ : " . $row->Tel; echo '<br>';
       echo "Email : " . $row->Email; echo '<br>';
-      echo "Username : " . $row->Username; echo '<br>';
       echo "จังหวัด : " . $row->Province; echo '<br>';
       echo "ตำบล : " . $row->Didtrict; echo '<br>';
       echo "รหัสไปรษณีย์ : " . $row->Postcode; echo '<br>';

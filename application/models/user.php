@@ -9,10 +9,11 @@ class user extends CI_Model
     # code...
       parent::__construct();
   }
-  function listname($name, $pass)
+
+  function listname($email, $pass)
   {
-    $sql = 'SELECT * FROM member WHERE Username = ? AND Password = ?';
-    $rs = $this->db->query($sql,array($name , $pass));
+    $sql = 'SELECT * FROM member WHERE Email = ? AND Password = ?';
+    $rs = $this->db->query($sql,array($email , $pass));
     if($rs->num_rows() > 0){
       return  $rs->result();
     }else{
@@ -31,10 +32,10 @@ class user extends CI_Model
     }
   }
 
-  function checkuser($Username) //เช็คว่า username ซ้ำกันหรือไม่
+  function checkuser($Email) //เช็คว่า username ซ้ำกันหรือไม่
   {
     # code...
-    $rs = $this->db->select('*')->from('member')->where('Username' , $Username)->get();
+    $rs = $this->db->select('*')->from('member')->where('Email' , $Email)->get();
     if($rs->num_rows() > 0){
       return 1;  //แสดงว่าซ้ำ
     }else{
@@ -42,7 +43,7 @@ class user extends CI_Model
     }
   }
 
-  function insertuser($IDCard,$Fname,$Lname,$Address,$Tel,$Email,$Username,$Password,$Province,$Didtrict,$Postcode){ //insert ข้อมูลuser
+  function insertuser($IDCard,$Fname,$Lname,$Address,$Tel,$Email,$Password,$Province,$Didtrict,$Postcode){ //insert ข้อมูลuser
     $sql = array(
       'IDCard' => $IDCard,
       'Fname' => $Fname,
@@ -50,7 +51,6 @@ class user extends CI_Model
       'Address' => $Address,
       'Tel' => $Tel,
       'Email' => $Email,
-      'Username' => $Username,
       'Password' => $Password,
       'Province' => $Province,
       'Didtrict' => $Didtrict,

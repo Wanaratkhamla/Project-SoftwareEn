@@ -34,15 +34,15 @@
             $("#submitregister").click(function() {
               $.ajax({
       				 url:"index.php/checklogin",
-               data: "username=" + $('#username').val() + "&password=" + $('#password').val(),
+               data: "Email=" + $('#email').val() + "&password=" + $('#password').val(),
       				 type:"POST",
       				 success:function(res){
                  if (res == 2) {
-                   $("#showerror").text("Please Enter Username and Password.");
+                   $("#showerror").text("Please Enter Email and Password.");
                    $("#showerror").css("color", "ff6666");
                    refreshcaptcha();
                  }else if (res == 3) {
-                   $("#showerror").text("Please Enter Username.");
+                   $("#showerror").text("Please Enter Email.");
                    $("#showerror").css("color", "ff6666");
                    refreshcaptcha();
                  }else if (res == 4) {
@@ -50,15 +50,15 @@
                    $("#showerror").css("color", "ff6666");
                    refreshcaptcha();
                  }else if(res == 1){
-                   $("#showerror").text("Invalid Username.");
+                   $("#showerror").text("Invalid Email.");
                    $("#showerror").css("color", "ff6666");
                    refreshcaptcha();
                  }else{
                     var url = 'index.php/checklogin/showlist';
-                    var username = $('#username').val();
+                    var email = $('#email').val();
                     var password = $('#password').val()
                     var form = $('<form action="' + url + '" method="post">' +
-                      '<input type="text" name="username" value="' + username + '" />' +
+                      '<input type="text" name="Email" value="' + email + '" />' +
                       '<input type="text" name="password" value="' + password + '" />' +
                       '</form>');
                     $('body').append(form);
@@ -80,6 +80,8 @@
                 document.getElementById("captcha").innerHTML = res.image;
                 $('#ccha').removeAttr('value');
                 $("#submitregister").prop('disabled', true);
+                $('#email').removeAttr('value');
+                $('#password').removeAttr('value');
                }
               });
             }
@@ -112,17 +114,17 @@
                             <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
                             <div style="text-align: center;">
                                 <span id="text-login-msg">
-                                    Type your username and password.
+                                    Type your Email and password.
                                 </span>
                             </div>
                         </div><center>
-                        Username : <input id="username" class="form-control" type="text" placeholder="Username" name="username"><br>
-                        Password : <input id="password" class="form-control" type="password" placeholder="Password" name="password"><br>
+                        Email : <input id="email" class="form-control" type="text" placeholder="E-Mail"><br>
+                        Password : <input id="password" class="form-control" type="password" placeholder="Password"><br>
                         <span id="showerror" class="showerror"></span>
 
                         <?php echo '<br><span id="captcha" style="color:#ff0000;text-align:center;">'  . $image . '</span>'; ?>
-                        <button type="button" id="Refreshcaptcha">Refresh</button>
-                        <br> Passcode : <input class="form-control" id="ccha" type="text" name="ccha" multiple><br>
+                        <button type="button" id="Refreshcaptcha"><img src="<?php echo base_url('recaptcha.png');?>" style="max-height: 20px; max-width: 20px;"/></button>
+                        <br> Passcode : <input class="form-control" id="ccha" type="text" name="ccha"><br>
                         <input type="checkbox" > Remember me
                         </center>
                     </div>
@@ -167,6 +169,23 @@
                 </form>
                 <!-- End | Lost Password Form -->
 
+                <!-- Begin | การ์ด 14 เลือกรับ กับ บริจาก -->
+                <form id="14-form" style="display:none;">
+                    <div class="modal-body">
+                        <div id="div-14-msg">
+                            <div id="icon-14-msg" class="glyphicon glyphicon-chevron-right"></div>
+                            <span id="text-14-msg">เลือกรายการ</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <center>
+                        <button  type="submit" class="btn btn_">ฉันต้องการจะบริจากสิ่งของ</button>&nbsp;&nbsp;&nbsp;
+                        <button type="submit" class="btn btn_">ฉันต้องการรับบริจากสิ่งของ</button>
+                        </center>
+                    </div>
+                </form>
+                <!-- End | การ์ด 14 เลือกรับ กับ บริจาก -->
+                
             </div>
             <!-- End # DIV Form -->
 
@@ -258,7 +277,6 @@
                         <h4 class="indent-2">ปี่ พระอภัยมณี</h4>
                         <p class="lead">ปี่ ที่ใช้ฆ่าผีเสื้อสมุด ผีเสื้อหนังสือ ผีเสื้อวิจัย ผีเสื้อรูปเล่มสัมนา</p>
                         <figure class="img-indent"><img src="<?php echo base_url('Boostap2/img/News/peeApai.jpg');?>" alt="" class="img-radius"></figure>
-                        <?php echo base_url('Boostap2/img/News/peeApai.jpg');?>
                         เป็นปี่พื้นเมืองที่มีพัฒนาการขึ้นเองในภูมิภาคอุษาคเนย์ นิยมใช้อยู่ในราชสำนักไทย ลาวและเขมร รวมถึงใช้ในวงโนราห์ชาตรีด้วย แต่เอามาบริจาก แบบงงๆ
                         <br>
 
@@ -273,13 +291,11 @@
                         <h4 class="indent-2">Harp Magic</h4>
                         <p class="lead">Harp ของแม่มดน้อยโดเรมี ที่มียังพลังหลงเหลืออยู่</p>
                         <figure class="img-indent"><img src="<?php echo base_url('Boostap2/img/News/harpMagic.jpg');?>" alt="" class="img-radius"></figure>
-                        <?php echo base_url('Boostap2/img/News/harpMagic.jpg');?>
                         ผู้ครอบครองทั้งหมดจะกลายเป็น "นายแห่งความตาย" หรือ "นายแห่งยมทูต" มี 3 สิ่ง ได้แก่ ผ้าคลุมล่องหน หินชุบวิญญาณ และไม้กายสิทธิ์เอลเดอร์ ไม่เกียวกับ Harp เลยแม้แต่นิด 5555 สนุกจัง.
                         <br>
                         <h4 class="indent-2">Hell Violin</h4>
                         <p class="lead">Violin นารก ที่ไม่ได้ถางหญ้า</p>
                         <figure class="img-indent"><img src="<?php echo base_url('Boostap2/img/News/violinHell.jpg');?>" alt="" class="img-radius"></figure>
-
                         จากที่นายตั้งคนเดิม เพิ่มเติมไข่เยี่ยมม้า ได้ไปถางหญ้าอยู่ที่นาของตัวเอง เพราะนามีหญ้าขึ้นรกไปหมด จึงทำให้ได้ไปพบเจอกับเครื่องดนตรีโบราญอันนี้ เลยได้เอามาบริจากกับทางเว็บของเรา แล้วนายตั้งก็ได้ตายไปเพราะงูใน violin ออกมาตอดตาย.
                         <br>
                     </div>
@@ -329,7 +345,6 @@
                         <div class="thumbnail">
                             <div class="caption">
                                 <img src="<?php echo base_url('Boostap2/img/ShowDrum.png');?>" alt="">
-                                <?php echo base_url('Boostap2/img/ShowDrum.png');?>
                                 <h3>&nbsp;&nbsp;&nbsp;Percussion</h3>
                                 <h5>&nbsp;&nbsp;&nbsp;&nbsp;เครื่องกระทบ</h5>
                             </div>
@@ -343,7 +358,6 @@
                         <div class="thumbnail">
                             <div class="caption">
                                 <img src="<?php echo base_url('Boostap2/img/ShowElectric-guitar.png');?>" alt="">
-
                                 <h3>&nbsp;&nbsp;&nbsp;String</h3>
                                 <h5>&nbsp;&nbsp;&nbsp;&nbsp;เครื่องสาย</h5>
                             </div>
@@ -357,7 +371,6 @@
                         <div class="thumbnail">
                             <div class="caption">
                                 <img src="<?php echo base_url('Boostap2/img/ShowFrench-horn.png');?>" alt="">
-
                                 <h3>&nbsp;&nbsp;&nbsp;Brass</h3>
                                 <h5>&nbsp;&nbsp;&nbsp;&nbsp;เครื่องลมทองเหลือง</h5>
                             </div>

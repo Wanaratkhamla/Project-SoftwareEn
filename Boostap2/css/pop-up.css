@@ -23,10 +23,12 @@
 }
 
 #div-login-msg,
+#div-14-msg,
 #div-lost-msg,
 
 
 #div-login-msg.success,
+#div-14-msg.success,
 #div-lost-msg.success,
 #div-register-msg.success {
     border: 1px solid #68c3a3;
@@ -34,20 +36,24 @@
 }
 
 #div-login-msg.error,
+#div-14-msg.error,
 #div-lost-msg.error,
 
 
 #icon-login-msg,
+#icon-14-msg,
 #icon-lost-msg,
 
 
 #icon-login-msg.success,
+#icon-14-msg.success,
 #icon-lost-msg.success,
 #icon-register-msg.success {
     background-color: #68c3a3 !important;
 }
 
 #icon-login-msg.error,
+#icon-14-msg.error,
 #icon-lost-msg.error,
 
 
