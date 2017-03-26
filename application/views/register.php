@@ -6,37 +6,55 @@
 <meta name="keywords" content="Metallic Website Template, free css template, free website template, CSS, XHTML" />
 <meta name="description" content="Metallic Website - free xhtml/css website template by templatemo.com" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('Boostap/templatemo_style.css');?>" media="all"/>
-<script src="<?php echo base_url('Boostap/js/jQuery v3.1.1.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('Boostap2/js/pop-up.js');?>"></script>
 <script>
 
 $(document).ready(function() {
-		$("#username").keyup(function() {
-				var getusername = $('#username').val();
-				var lengthusername = getusername.length;
-				var checkoverlap = "name=" + getusername ;
+		$("#Email").keyup(function() {
+				var getemail = $('#Email').val();
+				var lengthemail = getemail.length;
+				var checkoverlap = "email=" + getemail ;
 				$.ajax({
 				 url:"usercontroller/checkuser",
 				 data:checkoverlap,
 				 type:"POST",
 				 success:function(res){
-					 if (lengthusername > 5) {
+					 if (lengthemail > 5) {
 						 if (res == 1) {
-  						 $("#username").css("background-color", "#ff6666");
-							 $("#usercheck").text("User นี้ถูกใช้งานแล้ว");
+  						 $("#Email").css("background-color", "#ff6666");
+							 $("#usercheck").text("Email นี้ถูกใช้งานแล้ว");
 							 $("#usercheck").css("color", "ff6666");
   					 }else{
-  						 $("#username").css("background-color", "#66cc66");
-							 $("#usercheck").text("User สามารถใช้งานได้");
+  						 $("#Email").css("background-color", "#66cc66");
+							 $("#usercheck").text("Email สามารถใช้งานได้");
 							 $("#usercheck").css("color", "66cc66");
   					 }
 					 }else{
-						 	 $("#username").css("background-color", "#ff6666");
+						 	 $("#Email").css("background-color", "#ff6666");
 							 $("#usercheck").text("Password น้อยกว่า 6 อักขระ");
 							 $("#usercheck").css("color", "ff6666");
 					 }
 				 }
 				});
 		});
+
+		$('#Refcaptcha').click(function() {
+			$.ajax({
+				url:"index.php/startweb/refreshcaptchaimage",
+				type: "POST",
+				dataType: 'json',
+				success:function(res){
+				getcode2 = res.word
+				document.getElementById("captchas").innerHTML = res.image;
+				$('#ccha').removeAttr('value');
+				$("#submitregisters").prop('disabled', true);
+				$('#email').removeAttr('value');
+				$('#password').removeAttr('value');
+			 }
+			});
+		});
+
 		$("#ccha").keyup(function() {
 			var getcode = $('#ccha').val();
 			var getcode2 = '<?php echo $word;?>';
@@ -46,6 +64,7 @@ $(document).ready(function() {
 					$("#submitregister").prop('disabled', true);
 			}
 		});
+		
 		$("#idcade").keyup(function () {
 			var getid = $('#idcade').val();
 			var lengthid = getid.length;
@@ -115,27 +134,17 @@ $(document).ready(function() {
 
 		function checkPass()
 		{
-				//Store the password field objects into variables ...
+
 				var pass1 = document.getElementById('searchfielddd');
 				var pass2 = document.getElementById('searchfieldd');
-				//Store the Confimation Message Object ...
 				var message = document.getElementById('confirmMessage');
-				//Set the colors we will be using ...
 				var goodColor = "#66cc66";
 				var badColor = "#ff6666";
-				//Compare the values in the password field
-				//and the confirmation field
 				if(pass1.value == pass2.value){
-						//The passwords match.
-						//Set the color to the good color and inform
-						//the user that they have entered the correct password
 						pass2.style.backgroundColor = goodColor;
 						message.style.color = goodColor;
 						message.innerHTML = "Passwords Match!"
 				}else{
-						//The passwords do not match.
-						//Set the color to the bad color and
-						//notify the user.
 						pass2.style.backgroundColor = badColor;
 						message.style.color = badColor;
 						message.innerHTML = "Passwords Do Not Match!"
@@ -183,12 +192,15 @@ $(document).ready(function() {
             <center><?php
                 $attributes = array("method" => "POST", "autocomplete" => "on");
                 echo form_open("usercontroller", $attributes);?>
-                <div id="search_section">
-                <div class="col-sm-8">
-                Username : <input  id="username" type="text" name="username" pattern="\w{6,}" placeholder="Enter username"><br>
-                <span id="usercheck" class="usercheck"></span>
-                </div><br>
-              </div>
+
+							<div class="search_section">
+									 <div class="col-sm-8">
+										E-mail : <input class="form-control" id="Email" type="text" name="Email" placeholder="Enter your email address" multiple>
+											</div>
+											<span id="usercheck" class="usercheck"></span>
+								</div>
+								<br>
+
                 <div class="search_section">
                <div class="col-sm-8">
                 Password : <input class="form-control" id="searchfielddd"  type="password" name="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
@@ -329,18 +341,13 @@ $(document).ready(function() {
                       </div>
                 </div><br>
 
-                <div class="search_section">
-                     <div class="col-sm-8">
-                      E-mail : <input class="form-control" id="Email" type="text" name="Email" placeholder="Enter your email address" multiple>
-                        </div>
-                  </div><br>
 
-										<?php echo '<br><span style="color:#ff0000;text-align:center;">'  . $image . '</span>'; ?>
-										<button type="button"><img src="<?php echo base_url('Refresh.jpg');?>" width="20" height="20"></button>
+										<?php echo '<br><span id="captchas" style="color:#ff0000;text-align:center;">'  . $image . '</span>'; ?>
+										<button type="button" id='Refcaptcha'><img src="<?php echo base_url('recaptcha.png');?>" width="20" height="20"></button>
 
                 <div class="search_section">
                        <div class="col-sm-8">
-                        <br> Code : <input class="form-control" id="ccha" type="text" name="ccha" multiple>
+                        <br> Code : <input class="form-control" id="ccha" type="text" name="ccha">
 
                           </div>
                       </div><br>
@@ -348,7 +355,7 @@ $(document).ready(function() {
                 <div class="search_section">
                      <label class="col-sm-2 control-label"></label>
                       <div class="col-sm-8">
-                         <button id="submitregister" type="submit" class="btn btn-default" disabled>สมัครสมาชิก</button><br><br>
+                         <button id="submitregisters" type="submit" class="btn btn-default" disabled>สมัครสมาชิก</button><br><br>
                         <br><br>
   										</div>
                       </div>

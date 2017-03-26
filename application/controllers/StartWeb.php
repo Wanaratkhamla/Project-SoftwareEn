@@ -13,12 +13,10 @@ class startweb extends CI_Controller
 
     $captcha = $this->captcha->CreateCaptcha();
     $this->load->view('home' , $captcha);
+    
+
   }
-  public function test()
-  {
-    # code...
-    echo "nos";
-  }
+
   public function refreshcaptchaimage()
   {
     # code...

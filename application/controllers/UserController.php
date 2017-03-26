@@ -24,18 +24,17 @@ class usercontroller extends CI_Controller
      $address = htmlentities($_POST["Address"]);
      $tel = htmlentities($_POST["Tel"]);
      $email = htmlentities($_POST["Email"]);
-     $username = htmlentities($_POST["username"]);
      $password = htmlentities($_POST["password"]);
      $conpassword = htmlentities($_POST["conpassword"]);
      $Province = htmlentities($_POST["Province"]);
      $Didtrict = htmlentities($_POST["Didtrict"]);
      $Postcode = htmlentities($_POST["Postcode"]);
 
-     $Cuser = $this->user->checkuser($username);
+     $Cuser = $this->user->checkuser($email);
      $Cid = $this->user->checkssid($idcade);
      $Overlapid =$this->user->checkoverlapssid($idcade);
 
-     if ($Cuser == 0) { //เช็ค username ซ้ำกันหรือไม่
+     if ($Cuser == 0) { //เช็ค email ซ้ำกันหรือไม่
        if ($Overlapid == 0) { //เช็คว่า ID ซ้ำหรือไม่หรือไม่
           if ($Cid == 1) {  //เช็คว่า ID ถูกหรือไม่
             if ($password == $conpassword) { //เช็คว่า พาสเวิด ตรงกันหรือไม่
@@ -73,7 +72,7 @@ class usercontroller extends CI_Controller
      }else {
        $captcha = $this->captcha->CreateCaptcha();
        echo '<script language="javascript">';
-       echo 'alert("Userนี้ถูกใช้งานแล้ว!!!")';
+       echo 'alert("Emailนี้ถูกใช้งานแล้ว!!!")';
        echo '</script>';
       $this->load->helper(array('form'));
       $this->load->view('register' , $captcha);
@@ -83,7 +82,7 @@ class usercontroller extends CI_Controller
   }
 
   public function checkuser(){
-    $inputpage = $this->input->post("name");
+    $inputpage = $this->input->post("email");
     $ccc = $this->user->checkuser($inputpage);
     echo $ccc;
   }
@@ -99,6 +98,8 @@ class usercontroller extends CI_Controller
     $check2 = $this->user->checkssid($inputid2);
     echo $check2;
   }
+
+  
 }
 
  ?>

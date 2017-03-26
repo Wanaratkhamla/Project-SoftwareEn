@@ -37,6 +37,15 @@ class checklogin extends CI_Controller
         }
     }else{
       $check = 5;
+      foreach($result as $row)
+         {
+           $sess_array = array(
+             'id' => $row->IDCard,
+             'Fname' => $row->Fname
+           );
+           $this->session->sess_expiration = '7200';
+           $this->session->set_userdata($sess_array);
+         }
       echo $check;
     }
   }
@@ -58,6 +67,12 @@ class checklogin extends CI_Controller
       echo "ตำบล : " . $row->Didtrict; echo '<br>';
       echo "รหัสไปรษณีย์ : " . $row->Postcode; echo '<br>';
     }
+  }
+
+  public function Logoutuser()
+  {
+    $this->session->sess_destroy();
+    redirect('startweb');
   }
 }
 ?>

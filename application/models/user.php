@@ -32,7 +32,7 @@ class user extends CI_Model
     }
   }
 
-  function checkuser($Email) //เช็คว่า username ซ้ำกันหรือไม่
+  function checkuser($Email) //เช็คว่า email ซ้ำกันหรือไม่
   {
     # code...
     $rs = $this->db->select('*')->from('member')->where('Email' , $Email)->get();

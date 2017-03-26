@@ -19,7 +19,7 @@
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/camera.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/superfish.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/pop-up.js');?>"></script>
-    <script src="<?php echo base_url('Boostap2/js/jquery.ui.totop.js');?>" type="text/javascript"></script>
+    <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.ui.totop.js');?>"></script>
     <script>
     var getcode2 = '<?php echo $word;?>';
         $(document).ready(function(){
@@ -46,7 +46,7 @@
 <!-- BEGIN # MODAL LOGIN -->
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 
-        <div class="modal-content">
+          <div class="modal-content">
             <div class="modal-header" align="center">
                 <img class="img-circle" id="img_logo" src="<?php echo base_url('Boostap2/img/login.png');?>">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -86,7 +86,7 @@
                         </div>
                         <div>
                             <button id="login_lost_btn" type="button" class="btn btn-link">Lost Password?</button>
-                            <button type="button" class="btn btn-link">Register</button>
+                            <button type="button" class="btn btn-link"><a href="<?php echo base_url('index.php/linkregister');?>">Register</a></button>
                         </div>
                         </center>
                     </div>
@@ -119,17 +119,18 @@
 
                 <!-- Begin | การ์ด 14 เลือกรับ กับ บริจาก -->
                 <form id="14-form" style="display:none;">
+                  <center><span><h2>สวัสดีคุณ : <?php echo $this->session->userdata('Fname'); ?></h2></span></center>
+                  <center><span><h2>ยินดีต้อนรับสู่ We shared 4 you</h2></span></center>
                     <div class="modal-body">
                         <div id="div-14-msg">
                             <div id="icon-14-msg" class="glyphicon glyphicon-chevron-right"></div>
-
-                            <center><span id="text-14-msg">เลือกรายการ</span></center>
+                              <center><span id="text-14-msg">เลือกรายการ</span></center>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <center>
-                        <button  type="submit" class="btn btn_">ฉันต้องการจะบริจากสิ่งของ</button>&nbsp;&nbsp;&nbsp;
-                        <button type="submit" class="btn btn_">ฉันต้องการรับบริจากสิ่งของ</button>
+                        <button  type="submit" class="btn btn_"><a href="<?php echo base_url('index.php/linkdonate');?>">ฉันต้องการจะบริจากสิ่งของ</a></button>&nbsp;&nbsp;&nbsp;
+                        <button  type="submit" class="btn btn_"><a href="<?php echo base_url('index.php/startweb');?>">ฉันต้องการรับบริจากสิ่งของ</a></button>
                         </center>
                     </div>
                 </form>

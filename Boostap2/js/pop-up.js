@@ -9,7 +9,7 @@
  ##################################################################### */
  function refreshcaptcha() {
    $.ajax({
-     url:"index.php/startweb/refreshcaptchaimage",
+     url:"http://localhost/soften/index.php/startweb/refreshcaptchaimage",
      type: "POST",
      dataType: 'json',
      success:function(res){
@@ -48,13 +48,13 @@ $(function() {
             });
         });
     }
-    
+
     $("form").submit(function () {
         switch(this.id) {
             case "login-form":
                 //ส่งไปเช็ค
                 $.ajax({
-        				 url:"index.php/checklogin",
+        				 url:"http://localhost/soften/index.php/checklogin",
                  data: "Email=" + $('#email').val() + "&password=" + $('#password').val(),
         				 type:"POST",
         				 success:function(res){

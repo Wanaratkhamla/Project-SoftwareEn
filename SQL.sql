@@ -12,4 +12,23 @@ Didtrict VARCHAR(30),
 Postcode VARCHAR(5),
 CONSTRAINT Member_pri PRIMARY KEY (IDCard)
 );
+
+
+CREATE TABLE donate(
+donateID int NOT NULL AUTO_INCREMENT,
+IDCard VARCHAR(13),
+donateName VARCHAR(50),
+donateSize VARCHAR(20),
+donateweight VARCHAR(20),
+donateEA VARCHAR(20),
+donatecolor VARCHAR(100),
+donateType VARCHAR(50),
+donateDetail VARCHAR(500),
+donatePathIMG VARCHAR(500),
+CONSTRAINT donate_Pri PRIMARY KEY (donateID),
+CONSTRAINT donate_foreign FOREIGN KEY (IDCard) REFERENCES Member(IDCard)
+)
+
+
+
 INSERT INTO `member` (`IDCard`, `Fname`, `Lname`, `Address`, `Tel`, `Email`, `Username`, `Password`, `Province`, `Didtrict`, `Postcode`) VALUES ('1330800246735', 'วนราช', 'คำหล้า', '118', '0827505687', 'wanarat_k@kkumail.com', 'admin', 'admin12345', 'ขอนแก่น', 'เมือง', '40000');
