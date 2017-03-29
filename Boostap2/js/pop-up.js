@@ -23,6 +23,14 @@
    });
  }
 
+ function Logout() {
+    var url = 'http://localhost/soften/index.php/checklogin/Logoutuser';
+    var form = $('<form action="' + url + '" method="post">' +
+     '</form>');
+    $('body').append(form);
+    form.submit();
+ }
+
 $(function() {
 
     var $formLogin = $('#login-form');

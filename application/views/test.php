@@ -19,19 +19,26 @@ if(!isset($error)){
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.easing.1.3.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.ui.totop.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/forms.js');?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('Boostap2/js/function.js');?>"></script>
     <script>
-     $(document).ready(function() {
-        var check = '<?php echo $data['donateTypesend'] ?>';
-         if (check == '1') {
-           $('#donatesend1').prop('checked', true);
-         }else if (check == '2') {
-           $('#donatesend2').prop('checked', true);
-         }else if (check == '3') {
-           $('#donatesend3').prop('checked', true);
-           showinput();
-         }
-     });
+          function openFile() {
+          var input = event.target;
+          var reader = new FileReader();
+          reader.onload = function(){
+          var dataURL = reader.result;
+          var output = document.getElementById('output');
+          output.src = dataURL;
+        };
+        reader.readAsDataURL(input.files[0]);
+      };
+
+          function uninput() {
+              document.getElementById('frm_txt').style.display = "none";
+          }
+
+          function showinput(){
+              document.getElementById('frm_txt').style.display = "";
+          }
+
 
       // $(document).ready(function() {
       //   $('#submitdonate').click(function() {
@@ -134,7 +141,7 @@ if(!isset($error)){
                                 </td>
 
                             </table>
-                        อัพโหลดรูป : <br><input type="file" name="IMGPath" size="30" onchange='openFile()'/><br>
+                        อัพโหลดรูป : <br><input type="file" name="donatePathIMG" size="30" onchange='openFile()'/><br>
 
 
                 </div>
@@ -149,9 +156,9 @@ if(!isset($error)){
 
                     <h4>แก้ไขข้อมูลรับบริจาค</h4>
                             <div class="success">Contact form submitted!<strong><br>We will be in touch soon.</strong> </div>
-                            <input type="hidden" id="donateID" name="donateID" value="<?php echo $data['donateID'] ?>">
                             <fieldset>
-                                    ชื่อของที่บริจาค :<input type="text" name="donateName" id='donateName' value="<?php echo $data['donateName'] ?>">
+
+                                    ชื่อของที่บริจาค :<input type="text" name="donateName" id='donateName' value="<?php echo $data['donateID'] ?>">
 
                                 <br>
 
@@ -193,17 +200,17 @@ if(!isset($error)){
                                 </label>
                                 <h4>เลือกการส่ง :</h4>
                                 <label class="Typesend">
-                                    <h5>ส่งไปรษณีย์<input name="donateTypesend" type="radio" class="donatesend" id="donatesend1" value="1" onClick="uninput();" checked/></h5>
+                                    <h5>ส่งไปรษณีย์<input name="donateTypesend" type="radio" class="donatesend" id="donatesend" value="1" onClick="uninput();"/></h5>
                                     </label>
                                 <label class="Typesend">
-                                    <h5>รับที่องค์กร<input name="donateTypesend" type="radio" class="donatesend" id="donatesend2" value="2" onClick="uninput();" /></h5>
+                                    <h5>รับที่องค์กร<input name="donateTypesend" type="radio" class="donatesend" id="donatesend" value="2" onClick="uninput();" /></h5>
                                 </label>
                                 <label class="Typesend">
-                                    <h5>นัดรับที่<input name="donateTypesend" type="radio" class="donatesend" id="donatesend3" value="3" onClick="showinput();"/></h5>
+                                    <h5>นัดรับที่<input name="donateTypesend" type="radio" class="donatesend" id="donatesend" value="3" onClick="showinput();" checked/></h5>
                                 </label>
 
                                 <div id="frm_txt" style="display:none;">
-                                    รายละเอียดการส่ง : <input type="text" name="donatesendDetail" id="donatesendDetail" value="<?php echo $data['donatesendDetail'] ?>"/><br/>
+                                    รายละเอียดการส่ง : <input type="text" name="donatesendDetail" id="donatesendDetail" <?php echo $data['donatesendDetail'] ?>/><br/>
                                 </div>
 
                             </fieldset>

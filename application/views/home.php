@@ -1,3 +1,9 @@
+<?php
+if(!isset($error)){
+  $check = -1;
+}else if(isset($error)){
+  $check = $error;
+} ?>
 <html>
 <head>
     <title>Home</title>
@@ -35,7 +41,9 @@
             $('#Refreshcaptcha').click(function() {
                refreshcaptcha();
             });
-
+            $('#logout').click(function () {
+              Logout();
+            });
         });
     </script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.mobile.customized.min.js');?>"></script>
@@ -151,13 +159,26 @@
                 <div class="header-block clearfix">
                     <div class="clearfix header-block-pad">
                         <h1 class="brand"><a href="#"><img src="<?php echo base_url('Boostap2/img/logo1.png');?>" alt=""></a><span><strong>Brand of musical instruments donation </strong></span></h1>
+                        <?php
+                        if ($check == 1) { ?>
+                          <span class="contacts">
+                              <?php
+                                $attributes = array("method" => "POST", "autocomplete" => "on");
+                                echo form_open("checklogin/Logoutuser", $attributes);?>
+                                <h5>สวัสดีครับ : <span>คุณ<?php echo $this->session->userdata('Fname'); ?></span></h5>
+                                <button class="btn btn_" type="submit" id='logout'><span style="color:#FFFFFF;text-align:center;">Logout</span></button>
+                              <?php echo form_close(); ?>
+                          </span>
+                      <?php }else{ ?>
+                          <span class="contacts">
+                              <h5>เข้าสู่ระบบ</h5>
+                              <a href="#" class="btn btn_" role="button" data-toggle="modal" data-target="#login-modal" id="loginmodal"><span style="color:#FFFFFF;text-align:center;">Login</span></a>
+                              <br><br>สมัครสมาชิก : <a href="#" data-toggle="modal" data-target="#register-modal">register</a>
+                          </span>
+                          <?php
+                        }
+                         ?>
 
-                        <span class="contacts">
-                            <h5>เข้าสู่ระบบ</h5>
-                            <!--เรียกใช้ popup logint -->
-                            <a href="#" class="btn btn_" role="button" data-toggle="modal" data-target="#login-modal" id="loginmodal"><span style="color:#FFFFFF;text-align:center;">Login</span></a>
-                            <br><br>สมัครสมาชิก : <a href="#" data-toggle="modal" data-target="#register-modal">register</a>
-                        </span>
                     </div>
                     <div class="navbar navbar_ clearfix">
                         <div class="navbar-inner navbar-inner_">
