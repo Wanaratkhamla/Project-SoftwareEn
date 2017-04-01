@@ -28,10 +28,10 @@ donateDetail VARCHAR(500),
 donatePathIMG VARCHAR(500),
 donateTypesend VARCHAR(1),
 donatesendDetail VARCHAR(500),
-donateTimestamp DATE,
+donateTimestamp DATETIME,
 CONSTRAINT donate_Pri PRIMARY KEY (donateID),
 CONSTRAINT donate_foreign FOREIGN KEY (IDCard) REFERENCES Member(IDCard)
-)
+);
 
 
 

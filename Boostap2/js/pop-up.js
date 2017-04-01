@@ -23,13 +23,6 @@
    });
  }
 
- function Logout() {
-    var url = 'http://localhost/soften/index.php/checklogin/Logoutuser';
-    var form = $('<form action="' + url + '" method="post">' +
-     '</form>');
-    $('body').append(form);
-    form.submit();
- }
 
 $(function() {
 
@@ -64,6 +57,7 @@ $(function() {
                 $.ajax({
         				 url:"http://localhost/soften/index.php/checklogin",
                  data: "Email=" + $('#email').val() + "&password=" + $('#password').val(),
+                 dataType: 'json',
         				 type:"POST",
         				 success:function(res){
                    if (res == 2) {
@@ -80,6 +74,7 @@ $(function() {
                      refreshcaptcha();
                    }else{
                       msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "success", "glyphicon-ok", function () { modalAnimate($formLogin,$14form);});
+                      $("#showname").text(res.Fname);
                    }
         				 }
         				});
@@ -89,6 +84,7 @@ $(function() {
                 });
                 return false;
                 break;
+
             default:
                 return false;
         }
