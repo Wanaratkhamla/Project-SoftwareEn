@@ -9,20 +9,14 @@ class testCtrl extends CI_Controller
 
   public function index()
   {
-    $this->load->view('test2');
+    $password = htmlentities(hash('sha256', 'Admin2538'));
+    $result = $this->test->testquery('wanarat_k@kkumail.com', $password);
+    foreach ($result as $row)
+    {
+            $nos = $row->memberType;
+    }
+    echo $nos;
 
-  }
-
-  public function refreshcaptchaimage()
-  {
-    # code...
-    $this->output->set_content_type('application/json');
-    $captcha = $this->captcha->CreateCaptcha();
-    $data = array("image" => $captcha['image'],
-                  "word" => $captcha['word']
-                  );
-    echo json_encode($data);
-    // echo $captcha;
   }
 }
  ?>

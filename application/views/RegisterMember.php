@@ -7,24 +7,160 @@ if(!isset($error)){
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>บริจาคสินค้า</title>
+    <title>สมัครสมาชิก</title>
     <meta charset="utf-8">
     <link rel="icon" href="Boostap2/img/trumpet.png" type="image/x-icon">
     <link rel="stylesheet" href="<?php echo base_url('Boostap2/css/bootstrap.css');?>" type="text/css" media="screen">
     <link rel="stylesheet" href="<?php echo base_url('Boostap2/css/responsive.css');?>" type="text/css" media="screen">
     <link rel="stylesheet" href="<?php echo base_url('Boostap2/css/style.css');?>" type="text/css" media="screen">
-    <link rel="stylesheet" href="<?php echo base_url('Boostap2/css/mdb.min.css'); ?>" type="text/css">
+    <link rel="stylesheet" href="<?php echo base_url('Boostap2/css/pop-up.css');?>" type="text/css" media="screen">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.easing.1.3.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.ui.totop.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/forms.js');?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('Boostap2/js/camera.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/function.js');?>"></script>
-    <script></script>
+    <script type="text/javascript" src="<?php echo base_url('Boostap2/js/superfish.js');?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('Boostap2/js/pop-up.js');?>"></script>
+    <script>
+    <?php if (isset($word)) {
+     $words = $word;
+    } ?>
+    var getcode2 = '<?php echo $words;?>';
+        $(document).ready(function(){
+            jQuery('.camera_wrap').camera();
+            $("#ccha").keyup(function() {
+        			var getcode = $('#ccha').val();
+        			if (getcode == getcode2) {
+        					$("#submitlogin").prop('disabled', false);
+        			}else{
+        					$("#submitlogin").prop('disabled', true);
+        			}
+        		});
+
+
+            $('#Refreshcaptcha').click(function() {
+               refreshcaptcha();
+            });
+            $('#logout').click(function () {
+              Logout();
+            });
+        });
+    </script>
+    <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.mobile.customized.min.js');?>"></script>
 
 </head>
 
 <body>
+  <!--=====================================================popup===================================================-->
+  <!-- BEGIN # MODAL LOGIN -->
+  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-content">
+              <div class="modal-header" align="center">
+                  <img class="img-circle" id="img_logo" src="<?php echo base_url('Boostap2/img/login.png');?>">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  </button>
+              </div>
+
+              <!-- Begin # DIV Form -->
+              <div id="div-forms">
+                  <!-- Begin # Login Form -->
+                    <form id="login-form">
+                      <div class="modal-body">
+                          <div id="div-login-msg">
+                              <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
+                              <div style="text-align: center;">
+                                  <span id="text-login-msg">
+                                      Type your Email and password.
+                                  </span>
+                              </div>
+                          </div><center>
+                          Email : <input id="email" class="form-control" type="text" placeholder="E-Mail"><br>
+                          Password : <input id="password" class="form-control" type="password" placeholder="Password"><br>
+                          <span id="showerror" class="showerror"></span>
+
+                          <?php if (isset($image)) {
+                            $images = $image;
+                            echo '<br><span id="captcha" style="color:#ff0000;text-align:center;">'  . $images . '</span>';
+                          }else {
+                          } ?>
+
+                          <button type="button" id="Refreshcaptcha"><img src="<?php echo base_url('recaptcha.png');?>" style="max-height: 20px; max-width: 20px;"/></button>
+                          <br> Passcode : <input class="form-control" id="ccha" type="text" name="ccha" ><br>
+                          <input type="checkbox" > Remember me
+                          </center>
+                      </div>
+                      <div class="modal-footer">
+
+                          <center>
+                          <div>
+                             <button type="submit" class="btn btn_" id="submitlogin" disabled>Login</button>
+                               </div>
+                          </center>
+                          <div>
+                            <button id="login_lost_btn" type="button" class="btn btn-link"><a href="<?php echo base_url('index.php/forgetpasswordCTRL');?>" style="color:black;">Forget Password?</a></button>
+                            <button type="button" class="btn btn-link"><a href="<?php echo base_url('index.php/linkregister');?>" style="color:black;">Register</a></button>
+                          </div>
+                      </div>
+                    </form>
+
+                  <!-- End # Login Form -->
+
+                  <!-- Begin | Lost Password Form -->
+                  <form id="lost-form" style="display:none;">
+                      <div class="modal-body">
+                          <div id="div-lost-msg">
+                              <div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div>
+                              <div style="text-align: center;">
+                              <span id="text-lost-msg">Type your e-mail.</span>
+                            </div>
+                          </div>
+                          <input id="lost_email" class="form-control" type="text" placeholder="E-Mail" required>
+                      </div>
+                      <div class="modal-footer">
+                          <center>
+                          <div>
+                              <button type="submit" class="btn btn_">Send</button>
+                          </div>
+                          <div>
+                              <button id="lost_login_btn" type="button" class="btn btn-link">Log In</button>
+                              <button type="button" class="btn btn-link">Register</button>
+                          </div>
+                              </center>
+                      </div>
+                  </form>
+                  <!-- End | Lost Password Form -->
+
+                  <!-- Begin | การ์ด 14 เลือกรับ กับ บริจาก -->
+                  <form id="14-form" style="display:none;">
+                      <div class="modal-body">
+                        <center><span><h5>สวัสดีคุณ : <span id="showname"></span></h5></span></center>
+                        <center><span><h5>ยินดีต้อนรับสู่ We shared 4 you</h5></span></center>
+                          <div id="div-14-msg">
+                            <div id="icon-14-msg" class="glyphicon glyphicon-chevron-right"></div>
+                            <div style="text-align: center;">
+                                <span id="text-14-msg">เลือกรายการ</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <center>
+                          <button  type="submit" class="btn btn_" id='donate'><a href="<?php echo base_url('index.php/linkdonate');?>">ฉันต้องการจะบริจาคสิ่งของ</a></button>&nbsp;&nbsp;&nbsp;
+                          <button  type="submit" class="btn btn_" id='receive'><a href="<?php echo base_url('index.php/linkquery');?>">ฉันต้องการรับบริจาคสิ่งของ</a></button>
+                          </center>
+                      </div>
+                  </form>
+                  <!-- End | การ์ด 14 เลือกรับ กับ บริจาก -->
+
+              </div>
+              <!-- End # DIV Form -->
+
+          </div>
+
+  </div>
+  <!-- END # MODAL LOGIN -->
 <!--==============================header=================================-->
 <header>
     <div class="container">
@@ -34,12 +170,11 @@ if(!isset($error)){
                     <div class="clearfix header-block-pad">
                         <h1 class="brand"><a href="<?php echo base_url('index.php/startweb');?>"><img src="<?php echo base_url('Boostap2/img/logo1.png');?>" alt=""></a><span><strong>Brand of musical instruments donation </strong></span></h1>
                        <span class="contacts" align="right">
-                            <?php
-                              $attributes = array("method" => "POST", "autocomplete" => "on");
-                              echo form_open("checklogin/Logoutuser", $attributes);?>
-                              <h5><img height=50 width=50 src="<?php echo base_url("cart.png"); ?>"  /> | สวัสดีครับ : <span>คุณ<?php echo $this->session->userdata('Fname'); ?></span></h5>
-                              <button class="btn btn_" type="submit"><span style="color:#FFFFFF;text-align:center;">Logout</span></button>
-                            <?php echo form_close(); ?>
+                         <span class="contacts">
+                             <h5>เข้าสู่ระบบ</h5>
+                             <a href="#" class="btn btn_" role="button" data-toggle="modal" data-target="#login-modal" id="loginmodal"><span style="color:#FFFFFF;text-align:center;">Login</span></a>
+                             <br><br>สมัครสมาชิก : <a href="#" data-toggle="modal" data-target="#register-modal">register</a>
+                         </span>
                         </span>
                     </div>
 
@@ -50,7 +185,6 @@ if(!isset($error)){
                                 <div class="nav-collapse nav-collapse_ collapse">
                                     <ul class="nav sf-menu">
                                         <li class="active li-first"><a href="<?php echo base_url('index.php/startweb');?>"><em class="hidden-phone"></em>&nbsp;Home</a></li>
-                                        <li><a href="#">Donate Item</a></li>
                                         <li><a href="#">Statistic</a></li>
                                         <li><a href="#">FAQ</a></li>
                                         <li class="sub-menu"><a href="#">about</a>

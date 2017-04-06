@@ -2,7 +2,7 @@
 /**
  *
  */
-class user extends CI_Model
+class test extends CI_Model
 {
   public function __construct()
   {
@@ -19,6 +19,16 @@ class user extends CI_Model
     }else{
       return  0;
     }
+  }
+
+  function testquery($id,$pass)
+  {
+    $this->db->select('*');
+    $this->db->from('member');
+    $this->db->where('Email', $id);
+    $this->db->where('Password', $pass);
+    $rs = $this->db->get();
+    return $rs->result();
   }
 
   function checkoverlapssid($id) //เช็คว่าบัตรประชาชน ซ้ำหรือไม่
@@ -76,26 +86,31 @@ class user extends CI_Model
     }
   }
 
-  function checkForgetpassword($email,$Qmember,$Ansmember) //เช็คว่า Email คำถาม คำตอบ ตรงกับ database หรือไม่
+  function CreateCaptcha()
   {
-    $this->db->select('*');
-    $this->db->from('member');
-    $this->db->where('Email', $email);
-    $this->db->where('Qmember', $Qmember);
-    $this->db->where('Ansmember', $Ansmember);
-    $rs = $this->db->get();
-    if($rs->num_rows() > 0){
-      return  $rs->row_array();
-    }else{
-      return  0;
-    }
-  }
+    $vals = array(
+        'img_path'      => 'captcha/',
+        'img_url'       =>  base_url() . 'captcha/',
+        'font_path'     => 'captcha/times_new_yorker.ttf',
+        'img_width'     => 250,
+        'img_height'    => 80,
+        'expiration'    => 7200,
+        'word_length'   => 8,
+        'font_size'     => 26,
+        'img_id'        => 'Imageid',
+        'pool'          => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
 
-  function UpdatePassword($IDCard,$password) //function update Password ใหม่
-  {
-    $this->db->set('Password' , $password);
-    $this->db->where('IDCard', $IDCard);
-    $this->db->update('member');
+        // White background and border, black text and red grid
+        'colors'        => array(
+                'background' => array(255, 255, 255),
+                'border' => array(255, 255, 255),
+                'text' => array(0, 0, 0),
+                'grid' => array(255, 40, 40)
+        )
+);
+
+      $cap = create_captcha($vals);
+      return $cap;
   }
 
 }

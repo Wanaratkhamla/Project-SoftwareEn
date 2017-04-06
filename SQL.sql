@@ -45,11 +45,13 @@ CONSTRAINT donate_foreign2 FOREIGN KEY (donateTypeSendID) REFERENCES donateType(
 
 
 
+
+
 INSERT INTO `donateType` (`donateTypeSendID` , `donateTypeName`) VALUES (1,'ส่งไปรษณีย์');
 INSERT INTO `donateType` (`donateTypeSendID` , `donateTypeName`) VALUES (2,'รับที่องค์กร');
 INSERT INTO `donateType` (`donateTypeSendID` , `donateTypeName`) VALUES (3,'นัดรับที่');
 
 
 
-INSERT INTO `member` (`IDCard`, `Fname`, `Lname`, `Address`, `Tel`, `Email`, `Password`, `Province`, `Didtrict`, `Postcode` , `memberType`) VALUES
-('1330800246735', 'วนราช', 'คำหล้า', '118 ถนนศรีสุนทร ต.ในเมือง', '08-2750-56', 'wanarat_k@kkumail.com', '7d1fdab96428260175221521a4859b429e093ce1d537abd0008c4a94454855db', 'เมือง', 'ขอนแก่น', '40000' , 1);
+INSERT INTO `member` (`IDCard`, `Fname`, `Lname`, `Address`, `Tel`, `Email`, `Password`, `Province`, `Didtrict`, `Postcode` , `Qmember` , `Ansmember` , `memberType`) VALUES
+('1330800246735', 'วนราช', 'คำหล้า', '118 ถนนศรีสุนทร ต.ในเมือง', '08-2750-56', 'wanarat_k@kkumail.com', '7d1fdab96428260175221521a4859b429e093ce1d537abd0008c4a94454855db', 'เมือง', 'ขอนแก่น', '40000', 1 , 'หมาและแมว' , 1);

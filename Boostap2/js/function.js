@@ -8,6 +8,7 @@ function showinput(){
     document.getElementById('frm_txt').style.display = "";
  }
 
+ 
 
  function openFile() {
      var input = event.target;
