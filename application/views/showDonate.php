@@ -19,30 +19,6 @@ if(!isset($error)){
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.ui.totop.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/forms.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/function.js');?>"></script>
-    <style>
-    div.img-resize img {
-    	width: 240px;
-    	height: 160px;
-    }
-
-    div.img-resize {
-    	width: 225px;
-    	height: 200px;
-    	overflow: hidden;
-    	text-align: center;
-    }
-    div.sizelink a{
-      color: #003399;
-    	background-color: transparent;
-    	font-weight: bold;
-      font-size: 15px;
-      margin: 4px;
-      border: 2px solid #000000;
-      padding: 2px;
-
-    }
-
-    </style>
 </head>
 
 <body>
@@ -74,6 +50,14 @@ if(!isset($error)){
 
                                         <li><a href="#">Donate Item</a></li>
                                         <li><a href="#">Statistic</a></li>
+                                        <li class="sub-menu"><a href="#">Category</a>
+                                          <ul>
+                                              <li><a href="<?php echo base_url('index.php/linkquery/SelectCategory?keyword=เครื่องสาย');?>">เครื่องสาย</a></li>
+                                              <li><a href="<?php echo base_url('index.php/linkquery/SelectCategory?keyword=เครื่องตี');?>">เครื่องตี</a></li>
+                                              <li><a href="<?php echo base_url('index.php/linkquery/SelectCategory?keyword=เครื่องดีด');?>">เครื่องดีด</a></li>
+                                              <li><a href="<?php echo base_url('index.php/linkquery/SelectCategory?keyword=เครื่องสี');?>">เครื่องสี</a></li>
+                                              <li><a href="<?php echo base_url('index.php/linkquery/SelectCategory?keyword=เครื่องเป่า');?>">เครื่องเป่า</a></li>
+                                          </ul>
                                         <li><a href="#">FAQ</a></li>
                                         <li class="sub-menu"><a href="#">about</a>
                                             <ul>

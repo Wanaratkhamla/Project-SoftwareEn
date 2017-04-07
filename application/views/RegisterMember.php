@@ -1,15 +1,11 @@
-<?php
-if(!isset($error)){
-  $check = -1;
-}else if(isset($error)){
-  $check = $error;
-} ?>
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
-    <title>สมัครสมาชิก</title>
+    <title>Register</title>
     <meta charset="utf-8">
-    <link rel="icon" href="Boostap2/img/trumpet.png" type="image/x-icon">
+    <link rel="icon" href="<?php echo base_url('Boostap2/img/favicon.ico');?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo base_url('Boostap2/img/favicon.ico');?>" type="image/x-icon" />
+    <link rel="icon" href="<?php echo base_url('Boostap2/img/trumpet.png');?>" type="image/x-icon">
     <link rel="stylesheet" href="<?php echo base_url('Boostap2/css/bootstrap.css');?>" type="text/css" media="screen">
     <link rel="stylesheet" href="<?php echo base_url('Boostap2/css/responsive.css');?>" type="text/css" media="screen">
     <link rel="stylesheet" href="<?php echo base_url('Boostap2/css/style.css');?>" type="text/css" media="screen">
@@ -24,34 +20,48 @@ if(!isset($error)){
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/superfish.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('Boostap2/js/pop-up.js');?>"></script>
     <script>
-    <?php if (isset($word)) {
-     $words = $word;
-    } ?>
-    var getcode2 = '<?php echo $words;?>';
-        $(document).ready(function(){
-            jQuery('.camera_wrap').camera();
-            $("#ccha").keyup(function() {
-        			var getcode = $('#ccha').val();
-        			if (getcode == getcode2) {
-        					$("#submitlogin").prop('disabled', false);
-        			}else{
-        					$("#submitlogin").prop('disabled', true);
-        			}
-        		});
+          function openFile() {
+          var input = event.target;
+          var reader = new FileReader();
+          reader.onload = function(){
+          var dataURL = reader.result;
+          var output = document.getElementById('output');
+          output.src = dataURL;
+        };
+        reader.readAsDataURL(input.files[0]);
+      };
 
-
-            $('#Refreshcaptcha').click(function() {
-               refreshcaptcha();
-            });
-            $('#logout').click(function () {
-              Logout();
-            });
-        });
+      <?php if (isset($word)) {
+       $words = $word;
+      } ?>
+      var getcode2 = '<?php echo $words;?>';
+          $(document).ready(function(){
+              jQuery('.camera_wrap').camera();
+              $("#ccha").keyup(function() {
+          			var getcode = $('#ccha').val();
+          			if (getcode == getcode2) {
+          					$("#submitlogin").prop('disabled', false);
+          			}else{
+          					$("#submitlogin").prop('disabled', true);
+          			}
+          		});
+              $('#Refreshcaptcha').click(function() {
+                 refreshcaptcha();
+              });
+              $("#Email").keyup(function() {
+          			checkemail();
+          		});
+              $("#IDCard").keyup(function () {
+          			checkIDCard();
+          		});
+              $("#confirmPassword").keyup(function () {
+                checkPasswordAndconfirmPassword();
+              });
+          });
     </script>
-    <script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.mobile.customized.min.js');?>"></script>
 
 </head>
-
+<script type="text/javascript" src="<?php echo base_url('Boostap2/js/jquery.mobile.customized.min.js');?>"></script>
 <body>
   <!--=====================================================popup===================================================-->
   <!-- BEGIN # MODAL LOGIN -->
@@ -67,7 +77,7 @@ if(!isset($error)){
               <!-- Begin # DIV Form -->
               <div id="div-forms">
                   <!-- Begin # Login Form -->
-                    <form id="login-form">
+                  <form id="login-form">
                       <div class="modal-body">
                           <div id="div-login-msg">
                               <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
@@ -78,7 +88,7 @@ if(!isset($error)){
                               </div>
                           </div><center>
                           Email : <input id="email" class="form-control" type="text" placeholder="E-Mail"><br>
-                          Password : <input id="password" class="form-control" type="password" placeholder="Password"><br>
+                          Password : <input id="password" class="form-control" type="password" placeholder="Password" ><br>
                           <span id="showerror" class="showerror"></span>
 
                           <?php if (isset($image)) {
@@ -104,8 +114,7 @@ if(!isset($error)){
                             <button type="button" class="btn btn-link"><a href="<?php echo base_url('index.php/linkregister');?>" style="color:black;">Register</a></button>
                           </div>
                       </div>
-                    </form>
-
+                      </form>
                   <!-- End # Login Form -->
 
                   <!-- Begin | Lost Password Form -->
@@ -147,8 +156,8 @@ if(!isset($error)){
                       </div>
                       <div class="modal-footer">
                           <center>
-                          <button  type="submit" class="btn btn_" id='donate'><a href="<?php echo base_url('index.php/linkdonate');?>">ฉันต้องการจะบริจาคสิ่งของ</a></button>&nbsp;&nbsp;&nbsp;
-                          <button  type="submit" class="btn btn_" id='receive'><a href="<?php echo base_url('index.php/linkquery');?>">ฉันต้องการรับบริจาคสิ่งของ</a></button>
+                            <button  type="submit" class="btn btn_" id='donate'><a href="<?php echo base_url('index.php/linkdonate');?>">I Can help</a></button>&nbsp;&nbsp;&nbsp;
+                            <button  type="submit" class="btn btn_" id='receive'><a href="<?php echo base_url('index.php/linkquery');?>">I need help</a></button>
                           </center>
                       </div>
                   </form>
@@ -162,22 +171,19 @@ if(!isset($error)){
   </div>
   <!-- END # MODAL LOGIN -->
 <!--==============================header=================================-->
-<header>
+<header class="p0">
     <div class="container">
-    	<div class="row">
-        	<div class="span12">
-            	<div class="header-block clearfix">
+        <div class="row">
+            <div class="span12">
+                <div class="header-block clearfix">
                     <div class="clearfix header-block-pad">
                         <h1 class="brand"><a href="<?php echo base_url('index.php/startweb');?>"><img src="<?php echo base_url('Boostap2/img/logo1.png');?>" alt=""></a><span><strong>Brand of musical instruments donation </strong></span></h1>
-                       <span class="contacts" align="right">
-                         <span class="contacts">
-                             <h5>เข้าสู่ระบบ</h5>
-                             <a href="#" class="btn btn_" role="button" data-toggle="modal" data-target="#login-modal" id="loginmodal"><span style="color:#FFFFFF;text-align:center;">Login</span></a>
-                             <br><br>สมัครสมาชิก : <a href="#" data-toggle="modal" data-target="#register-modal">register</a>
-                         </span>
-                        </span>
+                          <span class="contacts">
+                              <h5>เข้าสู่ระบบ</h5>
+                              <a href="#" class="btn btn_" role="button" data-toggle="modal" data-target="#login-modal" id="loginmodal"><span style="color:#FFFFFF;text-align:center;">Login</span></a>
+                              <br><br>สมัครสมาชิก : <a href="<?php echo base_url('index.php/linkregister');?>" data-toggle="modal" data-target="#register-modal">register</a>
+                          </span>
                     </div>
-
                     <div class="navbar navbar_ clearfix">
                         <div class="navbar-inner navbar-inner_">
                             <div class="container">
@@ -213,135 +219,173 @@ if(!isset($error)){
                                 </ul>
                             </div>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
-       </div>
+        </div>
     </div>
 </header>
-<!--=============================================================================================-->
-<section id="content">
-    <div class="sub-content">
-        <div class="container">
-            <div class="row">
-                <div class="span4">
+<!-- Register -->
+<br><h3 class="registext" align="center">สมัครเข้าใช้งานเว็บไซต์</h3><br>
+<center><span id="alertmessege"></span></center><br>
+<form id="Registerform">
+<table width="1150" height="400" border="1" align="center">
+        <td>
+<div class="container-resub" align="center">
 
-                    <br><br><br><br><br>
-                   <div class="contact-form">
-                    <form action="<?= base_url() ?>index.php/linkdonate/donateControl" method="post" enctype="multipart/form-data">
-                        <table width="300" height="400" border="5">
-
+      <!-- ส่วนอัพรูป -->
+        <div class="confirmId">
+        <h5 class="textHeader"><font color="#eb4f4f">เลือกรูปบัตรประจำตัวประชาชนเพื่อยืนยันตัวตน</font></h5><br><span id="Errorimage"></span><br>
+                     <table width="300" height="400" border="5">
                                 <td>
                         <img id='output' height=500 width=400 />
                                 </td>
-
-                            </table>
-                        อัพโหลดรูป : <br><input type="file" name="donatePathIMG" size="30" onchange='openFile()'/><br>
-
-
-                </div>
-                </div>
-                <div class="span6">
-                    <div class="contact-form">
-                    <?php
-                    if ($check == 0) {
-                        echo '<br><span style="color:#ff0000;text-align:center;">คุณยังไม่ได้เลือกรูปภาพหรือรูปภาพมีขนาดใหญ่ไป</span>';
-                    }elseif ($check == 1) {
-                        echo '<br><span style="color:#ff0000;text-align:center;">กรุณากรอกให้ครบทุกช่อง</span>';
-                    }
-                    ?>
-
-                    <h4>กรอกข้อมูลเครื่องดนตรี</h4>
-                            <div class="success">Contact form submitted!<strong><br>We will be in touch soon.</strong> </div>
-                            <fieldset>
-
-                                    ชื่อเครื่องดนตรี :<input type="text" name="donateName" id='donateName' >
-
-                                <br>
-
-                                    ขนาดความกว้าง (cm.) : <input type="text" class="form-control" name="donateLength" id="donateLength" >
-                                <br>
-
-                                    ขนาดความยาว (cm.) : <input type="text" class="form-control" name="donatewidth" id="donatewidth" >
-                                <br>
-
-
-                                    น้ำหนัก(kg.) : <input type="text" class="form-control" name="donateweight" id="donateweight" >
-                                <br>
-
-
-                                    จำนวนชิ้น : <input type="text" class="form-control" name="donateEA" id="donateEA" >
-                                <br>
-
-                                    สภาพโดยรวมเฉลี่ย (%) : <br><input type="number"  min="1" max="100" name="donatecondition" id="donatecondition">
-
-                                <br> <br><br>
-
-
-                                    สี : <input type="text" class="form-control" name="donatecolor" id="donatecolor">
-                                    <span class="error">*This is not a valid phone number.</span> <span class="empty">*This field is required.</span>
-                                <br><br><br><br><br>
-
-                                <label class="Type">
-                                    ประเภท : <select id="music" name="donateType" id='donateType'  style="color: #000000;">
-                                        <option value="เครื่องสาย">เครื่องสาย</option>
-                                        <option value="เครื่องตี">เครื่องตี</option>
-                                        <option value="เครื่องดีด">เครื่องดีด</option>
-                                        <option value="เครื่องสี">เครื่องสี</option>
-                                        <option value="เครื่องเป่า">เครื่องเป่า</option>
-                                    </select>
-                                </label>
-
-                                <label class="Type">
-                                    รายละเอียด :
-                                    <textarea id="donateDetail" rows="4" cols="32" name="donateDetail" ></textarea>
-                                </label>
-                                <h4>เลือกการส่ง :</h4>
-                                <label class="Typesend">
-                                    <h5>ส่งไปรษณีย์<input name="donateTypesend" type="radio" class="donatesend" id="donatesend1" value="1" onClick="uninput();" checked/></h5>
-                                    </label>
-                                <label class="Typesend">
-                                    <h5>รับที่องค์กร<input name="donateTypesend" type="radio" class="donatesend" id="donatesend2" value="2" onClick="uninput();" /></h5>
-                                </label>
-                                <label class="Typesend">
-                                    <h5>นัดรับที่<input name="donateTypesend" type="radio" class="donatesend" id="donatesend3" value="3" onClick="showinput();" /></h5>
-                                </label>
-
-                                <div id="frm_txt" style="display:none;">
-                                    สถานที่นัดรับ : <input type="text" name="donatesendDetail" id="txtnum" /><br/>
-                                </div>
-
-                            </fieldset>
-                        <div class="pull-right">
-                            <button type='submit' class="btn btn_ btn-small_" id="submitdonate">บริจาค</button>
-                        </div>
-                        </form>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
-
+                            </table><br>
+                        อัพโหลดรูป : <input type="file" name="userPathIMG" size="30" onchange='openFile()'/><br><br>
+                        <span>ขนาดไม่เกิน 1024 x 768</span>
         </div>
-    </div>
-</section>
-
+      <!--  -->
+    </td>
+    <td align="center">
+      <section class="register-left">
+      <span id="Errorregister"></span>
+      <h5 class="textHeader"><font color="#eb4f4f">สมัครเพื่อใช้งานฟังก์ชันของเว็บไซต์</font></h5>
+      <form method="post" action="index.html">
+<!--      <div class="reg_section password">-->
+      <input type="email" name="Email" value="" placeholder="ที่อยู่อีเมล์" id="Email"><br><span id="Emailerror">กรุณากรอกEmailของท่าน</span><br>
+      <input id="Password" type="password" name="Password" value="" placeholder="รหัสผ่าน"><br>
+      <span id="Errorpassword"></span><br>
+      <input id="confirmPassword" type="password" name="confirmPassword" value="" placeholder="ยืนยันรหัสผ่าน">
+      <br><i>รหัสผ่านอย่างน้อย 8 ตัว ประกอบด้วยตัวอักษรพิมพ์ใหญ่ พิมพ์เล็ก ตัวเลข อย่างน้อย 1 ตัว</i><br>
+<!--      </div>-->
+<!--      <section class="register-right-2">-->
+        <h5 class="textHeader"><font color="#eb4f4f">ข้อมูลส่วนตัว</font></h5>
+        <input type="text" name="Fname" value="" placeholder="ชื่อ"><br>
+        <input type="text" name="Lname" value="" placeholder="สกุล"><br>
+<!--      </section>-->
+<!--      <div class="reg_section-password-next">-->
+        <input type="text" name="IDCard" id="IDCard" value="" placeholder="เลขบัตรประจำตัวประชาชน" pattern="[0-9]{13}"><br><span id="checkerrorID">กรุณาระบุเลขบัตรประชนของท่าน</span><br><br>
+        <textarea name="Address" id="Address" placeholder="ที่อยู่"></textarea><br>
+        <input type="text" name="Didtrict" value="" placeholder="อำเภอ"><br>
+      <select id="Province" name="Province" style="color: #000000;">
+        <option value="">จังหวัด</option>
+        <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+        <option value="กระบี่">กระบี่</option>
+        <option value="กาญจนบุรี">กาญจนบุรี</option>
+        <option value="กาฬสินธุ์">กาฬสินธุ์</option>
+        <option value="กำแพงเพชร">กำแพงเพชร</option>
+        <option value="ขอนแก่น">ขอนแก่น</option>
+        <option value="จันทบุรี">จันทบุรี</option>
+        <option value="ฉะเชิงเทรา">ฉะเชิงเทรา</option>
+        <option value="ชลบุรี">ชลบุรี</option>
+        <option value="ชัยนาท">ชัยนาท</option>
+        <option value="ชัยภูมิ">ชัยภูมิ</option>
+        <option value="ชุมพร">ชุมพร</option>
+        <option value="เชียงราย">เชียงราย</option>
+        <option value="เชียงใหม่">เชียงใหม่</option>
+        <option value="ตรัง">ตรัง</option>
+        <option value="ตราด">ตราด</option>
+        <option value="ตาก">ตาก</option>
+        <option value="นครนายก">นครนายก</option>
+        <option value="นครปฐม">นครปฐม</option>
+        <option value="นครพนม">นครพนม</option>
+        <option value="นครราชสีมา">นครราชสีมา</option>
+        <option value="นครศรีธรรมราช">นครศรีธรรมราช</option>
+        <option value="นครสวรรค์">นครสวรรค์</option>
+        <option value="นนทบุรี">นนทบุรี</option>
+        <option value="นราธิวาส">นราธิวาส</option>
+        <option value="น่าน">น่าน</option>
+        <option value="บึงกาฬ">บึงกาฬ</option>
+        <option value="บุรีรัมย์">บุรีรัมย์</option>
+        <option value="ปทุมธานี">ปทุมธานี</option>
+        <option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์</option>
+        <option value="ปราจีนบุรี">ปราจีนบุรี</option>
+        <option value="ปัตตานี">ปัตตานี</option>
+        <option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา</option>
+        <option value="พังงา">พังงา</option>
+        <option value="พัทลุง">พัทลุง</option>
+        <option value="พิจิตร">พิจิตร</option>
+        <option value="พิษณุโลก">พิษณุโลก</option>
+        <option value="เพชรบุรี">เพชรบุรี</option>
+        <option value="เพชรบูรณ์">เพชรบูรณ์</option>
+        <option value="แพร่">แพร่</option>
+        <option value="พะเยา">พะเยา</option>
+        <option value="ภูเก็ต">ภูเก็ต</option>
+        <option value="มหาสารคาม">มหาสารคาม</option>
+        <option value="มุกดาหาร">มุกดาหาร</option>
+        <option value="แม่ฮ่องสอน">แม่ฮ่องสอน</option>
+        <option value="ยะลา">ยะลา</option>
+        <option value="ยโสธร">ยโสธร</option>
+        <option value="ร้อยเอ็ด">ร้อยเอ็ด</option>
+        <option value="ระนอง">ระนอง</option>
+        <option value="ระยอง">ระยอง</option>
+        <option value="ราชบุรี">ราชบุรี</option>
+        <option value="ลพบุรี ">ลพบุรี</option>
+        <option value="ลำปาง">ลำปาง</option>
+        <option value="ลำพูน">ลำพูน</option>
+        <option value="เลย">เลย</option>
+        <option value="ศรีสะเกษ">ศรีสะเกษ</option>
+        <option value="สกลนคร">สกลนคร</option>
+        <option value="สงขลา">สงขลา</option>
+        <option value="สตูล">สตูล</option>
+        <option value="สมุทรปราการ">สมุทรปราการ</option>
+        <option value="สมุทรสงคราม">สมุทรสงคราม</option>
+        <option value="สมุทรสาคร">สมุทรสาคร</option>
+        <option value="สระแก้ว">สระแก้ว</option>
+        <option value="สระบุรี">สระบุรี</option>
+        <option value="สิงห์บุรี">สิงห์บุรี</option>
+        <option value="สุโขทัย">สุโขทัย</option>
+        <option value="สุพรรณบุรี">สุพรรณบุรี</option>
+        <option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
+        <option value="สุรินทร์">สุรินทร์</option>
+        <option value="หนองคาย">หนองคาย</option>
+        <option value="หนองบัวลำภู">หนองบัวลำภู</option>
+        <option value="อ่างทอง">อ่างทอง</option>
+        <option value="อุดรธานี">อุดรธานี</option>
+        <option value="อุทัยธานี">อุทัยธานี</option>
+        <option value="อุตรดิตถ์">อุตรดิตถ์</option>
+        <option value="อุบลราชธานี">อุบลราชธานี</option>
+        <option value="อำนาจเจริญ">อำนาจเจริญ</option>
+      </select><br>
+      <input type="text" name="Postcode" value="" placeholder="รหัสไปรษณีย์"><br>
+      <input type="text" name="Tel" value="" placeholder="หมายเลขโทรศัพท์"><br>
+      <select id="Qmember" name="Qmember" style="color: #000000;">
+          <option value="1">เลขบัตรประชาชน 4 ตัวสุดท้าย</option>
+          <option value="2">ชื่อสัตว์เลี้ยงตัวแรกของคุณ</option>
+          <option value="3">เบอร์โทรศัพท์ 4 ตัวสุดท้าย</option>
+          <option value="4">สีของรถครั้งแรกของคุณ</option>
+          <option value="5">เพลงโปรดของคุณ</option>
+          <option value="6">งานอดิเรกของคุณ</option>
+          <option value="7">หนังโปรดของคุณ</option>
+      </select><br><input type="text" name="Ansmember" id="Ansmember" placeholder="คำตอบ"><br>
+   <!-- วาง Captcha -->
+   <button type="submit" class="btn btn_" id="submitlogin">สมัครสมาชิก</button>
+          </form>
+          </section>
+          </td>
+ </div>
+ </table>
+ </form>
+<!--  </div>-->
+<!-- Register -->
 <footer>
-    <div class="container">
-        <div class="row">
-            <div class="span4 float2">
-            </div>
-            <div class="span8 float">
-                <ul class="footer-menu">
-                    <li><a href="#" class="current">Home Page</a>|</li>
-                    <li><a href="#">Statistic</a>|</li>
-                    <li><a href="#">FAQ</a>|</li>
-                    <li><a href="#">about</a>|</li>
-                </ul>
-                WeShar   &copy;  2017  |   Email : <a rel="nofollow" href="http://www.weshar@kku.com" target="_blank">weshar@kku.com</a>
-            </div>
-        </div>
+   <div class="container">
+    <div class="row">
+      <div class="span4 float2">
     </div>
+    <div class="span8 float">
+      	<ul class="footer-menu">
+        	  <li><a href="index.html">Home Page</a>|</li>
+            <li><a href="index-1.html">about</a>|</li>
+            <li><a href="index-2.html">Services</a>|</li>
+            <li><a href="index-3.html">collections</a>|</li>
+            <li><a href="index-4.html">styles</a>|</li>
+            <li><a href="index-5.html" class="current">Contacts</a></li>
+        </ul>
+          WeShar   &copy;  2017  |   Email : <a rel="nofollow" href="http://www.weshar@kku.com" target="_blank">weshar@kku.com</a>
+      </div>
+    </div>
+   </div>
 </footer>
 <script type="text/javascript" src="<?php echo base_url('Boostap2/js/bootstrap.js');?>"></script>
 </body>

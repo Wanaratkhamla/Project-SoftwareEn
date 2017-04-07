@@ -12,6 +12,8 @@ Postcode VARCHAR(5),
 Qmember int(1),
 Ansmember VARCHAR(150),
 memberType int(1),
+userPathIMG VARCHAR(500),
+userTimestamp DATETIME,
 CONSTRAINT Member_pri PRIMARY KEY (IDCard)
 );
 
@@ -55,3 +57,6 @@ INSERT INTO `donateType` (`donateTypeSendID` , `donateTypeName`) VALUES (3,'น�
 
 INSERT INTO `member` (`IDCard`, `Fname`, `Lname`, `Address`, `Tel`, `Email`, `Password`, `Province`, `Didtrict`, `Postcode` , `Qmember` , `Ansmember` , `memberType`) VALUES
 ('1330800246735', 'วนราช', 'คำหล้า', '118 ถนนศรีสุนทร ต.ในเมือง', '08-2750-56', 'wanarat_k@kkumail.com', '7d1fdab96428260175221521a4859b429e093ce1d537abd0008c4a94454855db', 'เมือง', 'ขอนแก่น', '40000', 1 , 'หมาและแมว' , 1);
+
+INSERT INTO `member` (`IDCard`, `Fname`, `Lname`, `Address`, `Tel`, `Email`, `Password`, `Province`, `Didtrict`, `Postcode` , `Qmember` , `Ansmember` , `memberType`) VALUES
+('1330800246737', 'วนราช', 'คำหล้า', '118 ถนนศรีสุนทร ต.ในเมือง', '08-2750-56', 'wanarat_k@kkumail.com', '7d1fdab96428260175221521a4859b429e093ce1d537abd0008c4a94454855db', 'เมือง', 'ขอนแก่น', '40000', 1 , 'หมาและแมว' , 1);
